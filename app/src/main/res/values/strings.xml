@@ -28,6 +28,7 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot your password?</string>
     <string name="forgot_password_msg">We just need your registered Email and we\'ll send you password reset instructions.</string>
+    <string name="btn_your_dogs">Dogs You Sponsor</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
 </resources>

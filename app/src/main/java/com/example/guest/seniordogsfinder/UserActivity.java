@@ -22,7 +22,7 @@ public class UserActivity extends AppCompatActivity {
     public static final String TAG = UserActivity.class.getSimpleName();
 
     private Button btnChangeEmail, btnChangePassword, btnSendResetEmail, btnRemoveUser,
-            changeEmail, changePassword, sendEmail, remove, signOut;
+            changeEmail, changePassword, sendEmail, remove, yourDogs, signOut;
 
     private EditText oldEmail, newEmail, password, newPassword;
     private ProgressBar progressBar;
@@ -66,6 +66,7 @@ public class UserActivity extends AppCompatActivity {
         sendEmail = (Button) findViewById(R.id.send);
         remove = (Button) findViewById(R.id.remove);
         signOut = (Button) findViewById(R.id.sign_out);
+        yourDogs = (Button) findViewById(R.id.your_dogs);
 
         oldEmail = (EditText) findViewById(R.id.old_email);
         newEmail = (EditText) findViewById(R.id.new_email);
@@ -245,7 +246,13 @@ public class UserActivity extends AppCompatActivity {
                 signOut();
             }
         });
-
+        yourDogs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, SponsoredDogsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //sign out method

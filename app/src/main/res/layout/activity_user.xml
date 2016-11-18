@@ -166,6 +166,17 @@
             android:textStyle="bold" />
 
         <Button
+            android:id="@+id/your_dogs"
+            style="?android:textAppearanceSmall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorPrimary"
+            android:text="@string/btn_your_dogs"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <Button
             android:id="@+id/sign_out"
             style="?android:textAppearanceSmall"
             android:layout_width="match_parent"

@@ -47,7 +47,16 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.guest.seniordogsfinder.MainActivity" />
         </activity>
-        <activity android:name=".DogsActivity"></activity>
+        <activity android:name=".DogsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.guest.seniordogsfinder.MainActivity" />
+        </activity>
+        <activity android:name=".SponsoredDogsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.guest.seniordogsfinder.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
