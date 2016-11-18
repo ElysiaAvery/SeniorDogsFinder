@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDrawerList = (ListView)findViewById(R.id.navList);
-        String[] navigationArray = { "Profile", "Sign Out", "Organizations", "Dogs" };
+        String[] navigationArray = { "Profile", "Organizations", "Dogs" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navigationArray);
         mDrawerList.setAdapter(mAdapter);
         ButterKnife.bind(this);
@@ -55,9 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(position == 0) {
                         Intent intent = new Intent(MainActivity.this, UserActivity.class);
                         startActivity(intent);
-                    } else if(position == 1) {
-                        auth.signOut();
-                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                    } else if(position == 2) {
+                        Intent intent = new Intent(MainActivity.this, DogsActivity.class);
                         startActivity(intent);
                     }
                 }
