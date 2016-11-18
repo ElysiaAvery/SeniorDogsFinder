@@ -17,6 +17,7 @@
         android:text="Sign In"
         android:textStyle="bold"
         android:textSize="15dp"
+        android:background="@color/colorAccent"
         android:layout_alignParentRight="true"/>
     <Button
         android:layout_width="125dp"
@@ -25,13 +26,13 @@
         android:text="Sign Out"
         android:textStyle="bold"
         android:textSize="15dp"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/signIn"/>
+        android:background="@color/colorAccent"
+        android:layout_alignParentRight="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="80dp"
+        android:textSize="75dp"
         android:text="Senior Pup!"
         android:id="@+id/header"
         android:textColor="#fff"

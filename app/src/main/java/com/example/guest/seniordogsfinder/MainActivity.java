@@ -47,8 +47,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         };
+
         if (auth.getCurrentUser() != null) {
-            // User is logged in
+            mSignIn.setVisibility(View.GONE);
+            mSignOut.setVisibility(View.VISIBLE);
+        } else if (auth.getCurrentUser() == null) {
+            mSignIn.setVisibility(View.VISIBLE);
+            mSignOut.setVisibility(View.GONE);
         }
         mSignIn.setOnClickListener(this);
         mSignOut.setOnClickListener(this);
