@@ -7,6 +7,8 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,11 +26,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.signIn) Button mSignIn;
     @Bind(R.id.signOut) Button mSignOut;
     @Bind(R.id.userPageButton) Button mUserPageButton;
+    private ListView mDrawerList;
+    private ArrayAdapter<String> mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mDrawerList = (ListView)findViewById(R.id.navList);
+        String[] navigationArray = { "Profile", "Organizations", "Dogs" };
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navigationArray);
+        mDrawerList.setAdapter(mAdapter);
         ButterKnife.bind(this);
         auth = FirebaseAuth.getInstance();
         Typeface goodDogFont = Typeface.createFromAsset(getAssets(), "fonts/GoodDog.otf");
