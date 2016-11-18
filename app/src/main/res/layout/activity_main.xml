@@ -17,8 +17,8 @@
         android:text="Sign In"
         android:textStyle="bold"
         android:textSize="15dp"
-        android:background="@color/colorAccent"
-        android:layout_alignParentRight="true"/>
+        android:background="@drawable/mybutton"
+        android:layout_alignParentLeft="true"/>
     <Button
         android:layout_width="125dp"
         android:layout_height="50dp"
@@ -26,19 +26,23 @@
         android:text="Sign Out"
         android:textStyle="bold"
         android:textSize="15dp"
-        android:background="@color/colorAccent"
-        android:layout_alignParentRight="true"/>
+    android:background="@drawable/mybutton"
+        android:layout_alignParentLeft="true"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="75dp"
+        android:textSize="85dp"
         android:text="Senior Pup!"
         android:id="@+id/header"
-        android:textColor="#fff"
+        android:textColor="@color/colorPrimaryLight"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="13dp"/>
+        android:layout_marginTop="45dp"
+        android:layout_marginLeft="13dp"
+        android:shadowColor="#fff"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="5"
+        android:gravity="center"/>
 </RelativeLayout>
