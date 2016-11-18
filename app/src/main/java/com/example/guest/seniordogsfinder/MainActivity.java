@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.header) TextView mHeader;
     @Bind(R.id.signIn) Button mSignIn;
     @Bind(R.id.signOut) Button mSignOut;
+    @Bind(R.id.userPageButton) Button mUserPageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Typeface bonvenoFont = Typeface.createFromAsset(getAssets(), "fonts/BonvenoCF-Light.otf");
         mSignIn.setTypeface(bonvenoFont);
         mSignOut.setTypeface(bonvenoFont);
+        mUserPageButton.setTypeface(bonvenoFont);
         FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -51,12 +53,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (auth.getCurrentUser() != null) {
             mSignIn.setVisibility(View.GONE);
             mSignOut.setVisibility(View.VISIBLE);
+            mUserPageButton.setVisibility(View.VISIBLE);
         } else if (auth.getCurrentUser() == null) {
             mSignIn.setVisibility(View.VISIBLE);
             mSignOut.setVisibility(View.GONE);
+            mUserPageButton.setVisibility(View.GONE);
         }
         mSignIn.setOnClickListener(this);
         mSignOut.setOnClickListener(this);
+        mUserPageButton.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -66,6 +71,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if(v == mSignOut) {
             auth.signOut();
             Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+        } else if(v == mUserPageButton) {
+            Intent intent = new Intent(MainActivity.this, UserActivity.class);
             startActivity(intent);
         }
     }

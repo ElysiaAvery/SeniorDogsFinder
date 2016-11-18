@@ -27,6 +27,15 @@
         android:textStyle="bold"
         android:textSize="15dp"
     android:background="@drawable/mybutton"
+        android:layout_alignParentRight="true"/>
+    <Button
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:id="@+id/userPageButton"
+        android:text="Profile"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:background="@drawable/mybutton"
         android:layout_alignParentLeft="true"/>
 
     <TextView
