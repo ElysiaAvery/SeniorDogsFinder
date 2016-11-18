@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -28,13 +30,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.userPageButton) Button mUserPageButton;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDrawerList = (ListView)findViewById(R.id.navList);
-        String[] navigationArray = { "Profile", "Organizations", "Dogs" };
+        String[] navigationArray = { "Profile", "Sign Out", "Organizations", "Dogs" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navigationArray);
         mDrawerList.setAdapter(mAdapter);
         ButterKnife.bind(this);
@@ -45,6 +48,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSignIn.setTypeface(bonvenoFont);
         mSignOut.setTypeface(bonvenoFont);
         mUserPageButton.setTypeface(bonvenoFont);
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if(position == 0) {
+                        Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                        startActivity(intent);
+                    } else if(position == 1) {
+                        auth.signOut();
+                        Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                        startActivity(intent);
+                    }
+                }
+        });
+
         FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {

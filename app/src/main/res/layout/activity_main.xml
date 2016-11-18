@@ -9,56 +9,53 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/background"/>
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:id="@+id/signIn"
-        android:text="Sign In"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:background="@drawable/mybutton"
-        android:layout_alignParentLeft="true"/>
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:id="@+id/signOut"
-        android:text="Sign Out"
-        android:textStyle="bold"
-        android:textSize="15dp"
-    android:background="@drawable/mybutton"
-        android:layout_alignParentRight="true"/>
-    <Button
-        android:layout_width="125dp"
-        android:layout_height="50dp"
-        android:id="@+id/userPageButton"
-        android:text="Profile"
-        android:textStyle="bold"
-        android:textSize="15dp"
-        android:background="@drawable/mybutton"
-        android:layout_alignParentLeft="true"/>
-
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background"/>
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:id="@+id/signIn"
+            android:text="Sign In"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:background="@drawable/mybutton"
+            android:layout_alignParentLeft="true"/>
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:id="@+id/signOut"
+            android:text="Sign Out"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:background="@drawable/mybutton"
+            android:layout_alignParentRight="true"/>
+        <Button
+            android:layout_width="125dp"
+            android:layout_height="50dp"
+            android:id="@+id/userPageButton"
+            android:text="Profile"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:background="@drawable/mybutton"
+            android:layout_alignParentLeft="true"/>
+    </FrameLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="85dp"
+        android:textSize="110dp"
         android:text="Senior Pup!"
         android:id="@+id/header"
-        android:textColor="@color/colorPrimaryLight"
-        android:layout_alignParentTop="true"
+        android:textColor="@color/colorPrimaryDark"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="45dp"
-        android:layout_marginLeft="13dp"
         android:shadowColor="#fff"
         android:shadowDx="3"
         android:shadowDy="3"
         android:shadowRadius="5"
         android:gravity="center"/>
-    </FrameLayout>
 
     <ListView
         android:id="@+id/navList"
