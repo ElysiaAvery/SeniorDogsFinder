@@ -7,11 +7,17 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.guest.seniordogsfinder.LoginActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/happy" />
+
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/colorPrimary"
         android:gravity="center"
+        android:background="#A6ffffff"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
 
@@ -34,8 +40,8 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="#000"
+                android:textColorHint="#000" />
         </android.support.design.widget.TextInputLayout>
 
         <android.support.design.widget.TextInputLayout
@@ -49,8 +55,8 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textColor="@android:color/white"
-                android:textColorHint="@android:color/white" />
+                android:textColor="#000"
+                android:textColorHint="#000" />
         </android.support.design.widget.TextInputLayout>
 
         <!-- Login Button -->
@@ -84,7 +90,7 @@
             android:background="@null"
             android:text="@string/btn_link_to_register"
             android:textAllCaps="false"
-            android:textColor="#fff"
+            android:textColor="#000"
             android:textSize="15dp" />
     </LinearLayout>
 
