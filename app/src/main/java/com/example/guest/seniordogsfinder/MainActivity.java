@@ -6,6 +6,8 @@ import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,9 +18,11 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth auth;
     @Bind(R.id.header) TextView mHeader;
+    @Bind(R.id.signIn) Button mSignIn;
+    @Bind(R.id.signOut) Button mSignOut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         Typeface goodDogFont = Typeface.createFromAsset(getAssets(), "fonts/GoodDog.otf");
         mHeader.setTypeface(goodDogFont);
+        Typeface bonvenoFont = Typeface.createFromAsset(getAssets(), "fonts/BonvenoCF-Light.otf");
+        mSignIn.setTypeface(bonvenoFont);
+        mSignOut.setTypeface(bonvenoFont);
         FirebaseAuth.AuthStateListener authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -43,6 +50,18 @@ public class MainActivity extends AppCompatActivity {
         if (auth.getCurrentUser() != null) {
             // User is logged in
         }
-
+        mSignIn.setOnClickListener(this);
+        mSignOut.setOnClickListener(this);
+    }
+    @Override
+    public void onClick(View v) {
+        if(v == mSignIn) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        } else if(v == mSignOut) {
+            auth.signOut();
+            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
 }

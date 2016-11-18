@@ -10,15 +10,34 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         android:src="@drawable/background"/>
+    <Button
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:id="@+id/signIn"
+        android:text="Sign In"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_alignParentRight="true"/>
+    <Button
+        android:layout_width="125dp"
+        android:layout_height="50dp"
+        android:id="@+id/signOut"
+        android:text="Sign Out"
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/signIn"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="70dp"
+        android:textSize="80dp"
         android:text="Senior Pup!"
         android:id="@+id/header"
         android:textColor="#fff"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="49dp" />
+        android:layout_marginTop="15dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="13dp"/>
 </RelativeLayout>
