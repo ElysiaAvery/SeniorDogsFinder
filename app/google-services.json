@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "1040273446838",
+    "firebase_url": "https://seniordogsfinder.firebaseio.com",
+    "project_id": "seniordogsfinder",
+    "storage_bucket": "seniordogsfinder.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1040273446838:android:1989e44050f775f3",
+        "android_client_info": {
+          "package_name": "com.example.guest.seniordogsfinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1040273446838-5b757m7e2t7a5jglimsc27boh1noak5c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwApeov1zWGnlzWXTJ7O1lzfB76DpCpK4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
