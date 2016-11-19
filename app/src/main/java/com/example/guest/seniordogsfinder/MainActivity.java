@@ -1,12 +1,15 @@
 package com.example.guest.seniordogsfinder;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.userPageButton) Button mUserPageButton;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
-    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerList.setAdapter(mAdapter);
         ButterKnife.bind(this);
         auth = FirebaseAuth.getInstance();
+
         Typeface goodDogFont = Typeface.createFromAsset(getAssets(), "fonts/GoodDog.otf");
         mHeader.setTypeface(goodDogFont);
         Typeface bonvenoFont = Typeface.createFromAsset(getAssets(), "fonts/BonvenoCF-Light.otf");
@@ -102,4 +105,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         }
     }
+
 }
