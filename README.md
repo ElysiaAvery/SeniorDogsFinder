@@ -3,9 +3,6 @@ A mobile app that allows the user to search senior dogs. This will allow them to
 
 #### By _[**Elysia Avery Nason**](https://github.com/elysiaavery)_
 
-## Description
-A web app that allows the user to submit a question that can be answered by other users.
-
 ## Setup/Installation Requirements
 
 * In your terminal window:
