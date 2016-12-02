@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.header) TextView mHeader;
     @Bind(R.id.signIn) Button mSignIn;
     @Bind(R.id.signOut) Button mSignOut;
+    @Bind(R.id.findDogsButton) Button mFindDogsButton;
     @Bind(R.id.userPageButton) Button mUserPageButton;
+    @Bind(R.id.locationInput) EditText mLocationInput;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
 
@@ -92,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSignIn.setOnClickListener(this);
         mSignOut.setOnClickListener(this);
         mUserPageButton.setOnClickListener(this);
+        mFindDogsButton.setOnClickListener(this);
     }
     @Override
     public void onClick(View v) {
@@ -104,6 +108,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if(v == mUserPageButton) {
             Intent intent = new Intent(MainActivity.this, UserActivity.class);
+            startActivity(intent);
+        } else if(v == mFindDogsButton) {
+            String location = mLocationInput.getText().toString();
+            Intent intent = new Intent(MainActivity.this, DogsActivity.class);
+            intent.putExtra("location", location);
             startActivity(intent);
         }
     }

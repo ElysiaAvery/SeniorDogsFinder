@@ -5,9 +5,17 @@
     tools:context="com.example.guest.seniordogsfinder.fragments.DogDetailFragment">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/dogImageView"
+        android:layout_gravity="center_horizontal|top" />
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="50dp"
+        android:id="@+id/dogName"
+        android:layout_gravity="center" />
 
 </FrameLayout>

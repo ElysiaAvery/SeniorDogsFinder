@@ -53,10 +53,10 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
     }
 
     public class DogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-//        @Bind(R.id.dogImageView)
-//        ImageView mDogImageView;
-//        @Bind(R.id.dogNameTextView)
-//        TextView mNameTextView;
+        @Bind(R.id.dogImageView)
+        ImageView mDogImageView;
+        @Bind(R.id.dogNameTextView)
+        TextView mNameTextView;
 
         private Context mContext;
 
@@ -77,14 +77,14 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
         }
 
         public void bindDog(Dog dog) {
-//            mNameTextView.setText(dog.getName());
-//
-//
-//            Picasso.with(mContext)
-//                    .load(dog.getImageUrl())
-//                    .resize(MAX_WIDTH, MAX_HEIGHT)
-//                    .centerCrop()
-//                    .into(mDogImageView);
+            mNameTextView.setText(dog.getName());
+
+
+            Picasso.with(mContext)
+                    .load(String.valueOf(dog.getPhotos()))
+                    .resize(MAX_WIDTH, MAX_HEIGHT)
+                    .centerCrop()
+                    .into(mDogImageView);
         }
     }
 }

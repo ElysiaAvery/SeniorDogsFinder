@@ -2,15 +2,18 @@ package com.example.guest.seniordogsfinder.services;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.models.Dog;
+import com.example.guest.seniordogsfinder.ui.DogsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.Call;
@@ -21,6 +24,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class PetService extends AppCompatActivity {
+    public static final String TAG = PetService.class.getSimpleName();
     public static void findDogs(String location, Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
                 .build();
@@ -32,6 +36,7 @@ public class PetService extends AppCompatActivity {
         urlBuilder.addQueryParameter("output", "full");
         urlBuilder.addQueryParameter("format", "json");
         String url = urlBuilder.build().toString();
+        Log.v(TAG, url);
 
         Request request = new Request.Builder()
                 .url(url)
@@ -51,8 +56,8 @@ public class PetService extends AppCompatActivity {
         ArrayList<Dog> dogList = new ArrayList<>();
 
         try {
-            String jsonData = response.body().toString();
             if (response.isSuccessful()) {
+                String jsonData = response.body().toString();
                 JSONObject dogJSON = new JSONObject(jsonData);
                 JSONArray dogListJSON = dogJSON.getJSONArray("pet");
                 for (int i = 0; i < dogListJSON.length(); i++) {
@@ -82,6 +87,8 @@ public class PetService extends AppCompatActivity {
                     dogList.add(dog);
                 }
             }
+//        } catch (IOException e) {
+//            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }

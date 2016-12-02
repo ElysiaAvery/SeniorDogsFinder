@@ -23,8 +23,7 @@ import okhttp3.Response;
 public class DogsActivity extends AppCompatActivity {
     public static final String TAG = DogsActivity.class.getSimpleName();
 
-    @Bind(R.id.recyclerView)
-    RecyclerView mRecyclerView;
+    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private DogsListAdapter mAdapter;
 
     public ArrayList<Dog> mDogs = new ArrayList<>();
@@ -54,16 +53,16 @@ public class DogsActivity extends AppCompatActivity {
             public void onResponse(Call call, Response response) {
                 mDogs = petService.processResults(response);
 
-//                DogsActivity.this.runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        mAdapter = new DogListAdapter(getApplicationContext(), mDogs);
-//                        mRecyclerView.setAdapter(mAdapter);
-//                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DogsActivity.this);
-//                        mRecyclerView.setLayoutManager(layoutManager);
-//                        mRecyclerView.setHasFixedSize(true);
-//                    }
-//                });
+                DogsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAdapter = new DogsListAdapter(getApplicationContext(), mDogs);
+                        mRecyclerView.setAdapter(mAdapter);
+                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(DogsActivity.this);
+                        mRecyclerView.setLayoutManager(layoutManager);
+                        mRecyclerView.setHasFixedSize(true);
+                    }
+                });
             }
         });
     }
