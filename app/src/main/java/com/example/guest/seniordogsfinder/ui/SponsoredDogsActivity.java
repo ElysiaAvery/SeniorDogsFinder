@@ -1,7 +1,9 @@
-package com.example.guest.seniordogsfinder;
+package com.example.guest.seniordogsfinder.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.guest.seniordogsfinder.R;
 
 public class SponsoredDogsActivity extends AppCompatActivity {
 

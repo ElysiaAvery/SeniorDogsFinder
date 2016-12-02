@@ -1,4 +1,4 @@
-package com.example.guest.seniordogsfinder;
+package com.example.guest.seniordogsfinder.ui;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -18,6 +18,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.guest.seniordogsfinder.R;
+import com.example.guest.seniordogsfinder.ui.UserActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

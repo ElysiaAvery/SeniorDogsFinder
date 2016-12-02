@@ -1,15 +1,16 @@
 package com.example.guest.seniordogsfinder.services;
 
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.util.DiffUtil;
+import android.os.Bundle;
 
 import com.example.guest.seniordogsfinder.Constants;
+import com.example.guest.seniordogsfinder.R;
+import com.example.guest.seniordogsfinder.models.Dog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import okhttp3.Call;
@@ -18,11 +19,7 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import se.akerfeldt.okhttp.signpost.OkHttpOAuthConsumer;
 
-/**
- * Created by Guest on 12/2/16.
- */
 public class PetService extends AppCompatActivity {
     public static void findDogs(String location, Callback callback) {
         OkHttpClient client = new OkHttpClient.Builder()
@@ -42,6 +39,12 @@ public class PetService extends AppCompatActivity {
 
         Call call = client.newCall(request);
         call.enqueue(callback);
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_pet_service);
     }
 
     public ArrayList<Dog> processResults (Response response) {
@@ -79,8 +82,6 @@ public class PetService extends AppCompatActivity {
                     dogList.add(dog);
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }

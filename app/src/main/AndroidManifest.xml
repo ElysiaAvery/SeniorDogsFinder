@@ -57,6 +57,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.guest.seniordogsfinder.MainActivity" />
         </activity>
+        <activity android:name=".services.PetService"></activity>
     </application>
 
 </manifest>
