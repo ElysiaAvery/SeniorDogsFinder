@@ -15,7 +15,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:theme="@style/NoActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,38 +24,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SignUpActivity"
+            android:name=".ui.SignUpActivity"
             android:theme="@style/NoActionBarTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.guest.seniordogsfinder.LoginActivity" />
+                android:value="com.example.guest.seniordogsfinder.ui.LoginActivity" />
         </activity>
-        <activity android:name=".LoginActivity">
+        <activity android:name=".ui.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.guest.seniordogsfinder.MainActivity" />
+                android:value="com.example.guest.seniordogsfinder.ui.MainActivity" />
         </activity>
         <activity
-            android:name=".ResetPasswordActivity"
+            android:name=".ui.ResetPasswordActivity"
             android:theme="@style/NoActionBarTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.guest.seniordogsfinder.LoginActivity" />
+                android:value="com.example.guest.seniordogsfinder.ui.LoginActivity" />
         </activity>
-        <activity android:name=".UserActivity">
+        <activity android:name=".ui.UserActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.guest.seniordogsfinder.MainActivity" />
+                android:value="com.example.guest.seniordogsfinder.ui.MainActivity" />
         </activity>
-        <activity android:name=".DogsActivity">
+        <activity android:name=".ui.DogsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.guest.seniordogsfinder.MainActivity" />
+                android:value="com.example.guest.seniordogsfinder.ui.MainActivity" />
         </activity>
-        <activity android:name=".SponsoredDogsActivity">
+        <activity android:name=".ui.SponsoredDogsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.guest.seniordogsfinder.MainActivity" />
+                android:value="com.example.guest.seniordogsfinder.ui.MainActivity" />
         </activity>
         <activity android:name=".services.PetService" />
         <activity android:name=".ui.DogDetailActivity" />

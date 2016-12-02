@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.example.guest.seniordogsfinder.R;
+import com.example.guest.seniordogsfinder.fragments.DogDetailFragment;
 import com.example.guest.seniordogsfinder.models.Dog;
 
 import java.util.ArrayList;

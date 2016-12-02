@@ -12,10 +12,10 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.guest.seniordogsfinder.MainActivity;
+import com.example.guest.seniordogsfinder.ui.MainActivity;
 import com.example.guest.seniordogsfinder.R;
-import com.example.guest.seniordogsfinder.ResetPasswordActivity;
-import com.example.guest.seniordogsfinder.SignUpActivity;
+import com.example.guest.seniordogsfinder.ui.ResetPasswordActivity;
+import com.example.guest.seniordogsfinder.ui.SignUpActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;

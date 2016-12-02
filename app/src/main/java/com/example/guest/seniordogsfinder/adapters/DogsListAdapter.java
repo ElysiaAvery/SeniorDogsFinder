@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.example.guest.seniordogsfinder.ui.DogDetailActivity;
+import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
@@ -23,7 +24,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Guest on 12/2/16.
  */
-public class DogsListAdapter {
+public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogViewHolder>{
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
     private ArrayList<Dog> mDogs = new ArrayList<>();
@@ -52,10 +53,10 @@ public class DogsListAdapter {
     }
 
     public class DogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.dogImageView)
-        ImageView mDogImageView;
-        @Bind(R.id.dogNameTextView)
-        TextView mNameTextView;
+//        @Bind(R.id.dogImageView)
+//        ImageView mDogImageView;
+//        @Bind(R.id.dogNameTextView)
+//        TextView mNameTextView;
 
         private Context mContext;
 
@@ -75,15 +76,15 @@ public class DogsListAdapter {
             mContext.startActivity(intent);
         }
 
-        public void bindRestaurant(Dog dog) {
-            mNameTextView.setText(dog.getName());
-
-
-            Picasso.with(mContext)
-                    .load(dog.getImageUrl())
-                    .resize(MAX_WIDTH, MAX_HEIGHT)
-                    .centerCrop()
-                    .into(mDogImageView);
+        public void bindDog(Dog dog) {
+//            mNameTextView.setText(dog.getName());
+//
+//
+//            Picasso.with(mContext)
+//                    .load(dog.getImageUrl())
+//                    .resize(MAX_WIDTH, MAX_HEIGHT)
+//                    .centerCrop()
+//                    .into(mDogImageView);
         }
     }
 }
