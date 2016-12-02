@@ -1,7 +1,9 @@
-package com.example.guest.seniordogsfinder;
+package com.example.guest.seniordogsfinder.services;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.util.DiffUtil;
+
+import com.example.guest.seniordogsfinder.Constants;
 
 import org.json.JSONArray;
 import org.json.JSONException;
