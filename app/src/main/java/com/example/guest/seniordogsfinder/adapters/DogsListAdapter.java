@@ -53,11 +53,10 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
     }
 
     public class DogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        @Bind(R.id.dogImageView)
-        ImageView mDogImageView;
-        @Bind(R.id.dogNameTextView)
-        TextView mNameTextView;
-
+        @Bind(R.id.dogImageView) ImageView mDogImageView;
+        @Bind(R.id.dogNameTextView) TextView mNameTextView;
+        @Bind(R.id.dogSexTextView) TextView mGenderTextView;
+        @Bind(R.id.breedsTextView) TextView mBreedsTextView;
         private Context mContext;
 
         public DogViewHolder(View itemView) {
@@ -78,6 +77,8 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
 
         public void bindDog(Dog dog) {
             mNameTextView.setText(dog.getName());
+            mGenderTextView.setText(dog.getGender());
+            mBreedsTextView.setText(dog.getBreeds() + "");
 
 
             Picasso.with(mContext)

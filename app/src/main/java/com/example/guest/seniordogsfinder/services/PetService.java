@@ -12,9 +12,12 @@ import com.example.guest.seniordogsfinder.ui.DogsActivity;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -56,18 +59,26 @@ public class PetService extends AppCompatActivity {
         ArrayList<Dog> dogList = new ArrayList<>();
 
         try {
+            String jsonData = response.body().string();
             if (response.isSuccessful()) {
-                String jsonData = response.body().toString();
                 JSONObject dogJSON = new JSONObject(jsonData);
-                JSONArray dogListJSON = dogJSON.getJSONArray("pet");
+                JSONArray dogListJSON = dogJSON.getJSONObject("petfinder").getJSONObject("pets").getJSONArray("pet");
                 for (int i = 0; i < dogListJSON.length(); i++) {
                     JSONObject dogObjectJSON = dogListJSON.getJSONObject(i);
                     String name = dogObjectJSON.getJSONObject("name").getString("$t");
                     String id = dogObjectJSON.getJSONObject("id").getString("$t");
+                    String data = "\"breeds\": {"
+                            + "\"breed\": ";
+                    Object json = new JSONTokener(data).nextValue();
                     ArrayList<String> breeds = new ArrayList<>();
-                    JSONArray breedsJSON = dogObjectJSON.getJSONObject("breeds").getJSONArray("breed");
-                    for (int y = 0; y < breedsJSON.length(); y++) {
-                        breeds.add(breedsJSON.get(y).toString());
+                    if (json instanceof JSONObject){
+                        String breed = dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").getString("$t");
+                        breeds.add(breed);
+                    } else if (json instanceof JSONArray) {
+                        JSONArray breedsJSON = dogObjectJSON.getJSONObject("breeds").getJSONArray("breed");
+                        for (int y = 0; y < breedsJSON.length(); y++) {
+                            breeds.add(breedsJSON.get(y).toString());
+                        }
                     }
                     String sex = dogObjectJSON.getJSONObject("sex").getString("$t");
                     String description = dogObjectJSON.getJSONObject("description").getString("$t");
@@ -78,17 +89,17 @@ public class PetService extends AppCompatActivity {
                     }
                     String contact = dogObjectJSON.getJSONObject("contact").getJSONObject("phone").getString("$t");
                     String email = dogObjectJSON.getJSONObject("contact").getJSONObject("email").getString("$t");
-                    ArrayList<String> photos = new ArrayList<>();
-                    JSONArray photosJSON = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo");
-                    for (int t = 0; t < photosJSON.length(); t++) {
-                        photos.add(photosJSON.get(t).toString());
-                    }
+//                    ArrayList<String> photos = new ArrayList<>();
+                    String photos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(3).getString("$t");
+//                    for (int t = 0; t < 1; t++) {
+//                        photos.add(photosJSON.get(t).toString());
+//                    }
                     Dog dog = new Dog(name, id, breeds, sex, description, options, contact, email, photos);
                     dogList.add(dog);
                 }
             }
-//        } catch (IOException e) {
-//            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         } catch (JSONException e) {
             e.printStackTrace();
         }

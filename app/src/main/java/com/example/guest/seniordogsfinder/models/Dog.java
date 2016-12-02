@@ -14,9 +14,9 @@ public class Dog {
     private ArrayList<String> mOptions = new ArrayList<>();
     private String mPhone;
     private String mEmail;
-    private ArrayList<String> mPhotos = new ArrayList<>();
+    private String mPhotos;
 
-    public Dog(String name, String id, ArrayList<String> breeds, String sex, String description, ArrayList<String> options, String phone, String email, ArrayList<String> photos) {
+    public Dog(String name, String id, ArrayList<String> breeds, String sex, String description, ArrayList<String> options, String phone, String email, String photos) {
         this.mName = name;
         this.mId = id;
         this.mBreeds = breeds;
@@ -60,7 +60,8 @@ public class Dog {
         return mEmail;
     }
 
-    public ArrayList<String> getPhotos() {
+    public String getPhotos() {
         return mPhotos;
     }
+
 }
