@@ -1,10 +1,13 @@
 package com.example.guest.seniordogsfinder.models;
 
+import org.parceler.Parcel;
+
 import java.util.ArrayList;
 
 /**
  * Created by Guest on 12/2/16.
  */
+@Parcel
 public class Dog {
     private String mName;
     private String mId;
@@ -15,6 +18,8 @@ public class Dog {
     private String mPhone;
     private String mEmail;
     private String mPhotos;
+
+    public Dog() {}
 
     public Dog(String name, String id, ArrayList<String> breeds, String sex, String description, ArrayList<String> options, String phone, String email, String photos) {
         this.mName = name;

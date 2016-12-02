@@ -16,8 +16,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class DogDetailActivity extends AppCompatActivity {
-    @Bind(R.id.viewPager)
-    ViewPager mViewPager;
+    @Bind(R.id.viewPager) ViewPager mViewPager;
     private DogPagerAdapter adapterViewPager;
     ArrayList<Dog> mDogs = new ArrayList<>();
 

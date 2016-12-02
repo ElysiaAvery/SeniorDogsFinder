@@ -32,7 +32,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
     public static DogDetailFragment newInstance(Dog dog) {
         DogDetailFragment dogDetailFragment = new DogDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable("dog", Parcels.wrap(dog));
+        args.putParcelable("dogs", Parcels.wrap(dog));
         dogDetailFragment.setArguments(args);
         return dogDetailFragment;
     }
@@ -40,7 +40,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDog = Parcels.unwrap(getArguments().getParcelable("dog"));
+        mDog = Parcels.unwrap(getArguments().getParcelable("dogs"));
     }
 
 

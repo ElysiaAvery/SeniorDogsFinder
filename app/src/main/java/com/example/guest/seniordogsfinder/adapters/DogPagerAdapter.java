@@ -3,15 +3,15 @@ package com.example.guest.seniordogsfinder.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 
-import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.fragments.DogDetailFragment;
 import com.example.guest.seniordogsfinder.models.Dog;
 
 import java.util.ArrayList;
 
+/**
+ * Created by Guest on 12/2/16.
+ */
 public class DogPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Dog> mDogs;
 

@@ -43,7 +43,7 @@ public class DogsActivity extends AppCompatActivity {
     private void getDogs(String location) {
         final PetService petService = new PetService();
 
-        petService.findDogs(location, new Callback() {
+        PetService.findDogs(location, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
