@@ -88,7 +88,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
             startActivity(phoneIntent);
         }
         if (v == mDogEmail) {
-            Intent emailIntent = new Intent(Intent.ACTION_SEND,
+            Intent emailIntent = new Intent(Intent.ACTION_SENDTO,
                     Uri.parse(mDog.getEmail()));
             startActivity(emailIntent);
         }
