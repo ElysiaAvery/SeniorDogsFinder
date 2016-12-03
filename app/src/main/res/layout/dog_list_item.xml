@@ -2,47 +2,56 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
     android:background="#E1F7DB">
 
-    <ImageView
-        android:layout_width="213dp"
-        android:layout_height="164dp"
-        android:id="@+id/dogImageView"
-        android:scaleType="centerCrop"/>
-
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:background="#ffffff"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dogNameTextView"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            android:text="Dog Name"
-            android:textColor="@color/colorPrimary"/>
+        <LinearLayout
+            android:layout_width="175dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/dogSexTextView"
-            android:layout_below="@+id/dogNameTextView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textStyle="italic"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dogNameTextView"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                android:layout_margin="5dp"
+                android:layout_alignParentTop="true"
+                android:text="Dog Name"
+                android:layout_gravity="left"
+                android:textColor="@color/colorPrimary"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Breeds"
-            android:id="@+id/breedsTextView"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:textColor="@color/colorAccent"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Breeds"
+                android:id="@+id/breedsTextView"
+                android:layout_margin="5dp"
+                android:textColor="@color/colorAccent"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dogSexTextView"
+                android:layout_below="@+id/dogNameTextView"
+                android:layout_gravity="left"
+                android:layout_margin="5dp"
+                android:textStyle="italic"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="213dp"
+            android:layout_height="164dp"
+            android:id="@+id/dogImageView"
+            android:scaleType="centerCrop"
+            android:layout_alignParentTop="true"/>
 
     </LinearLayout>
 
