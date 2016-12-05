@@ -30,7 +30,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.dogImageView) ImageView mDogImageView;
     @Bind(R.id.dogName) TextView mDogNameTextView;
     @Bind(R.id.dogGender) TextView mDogGender;
-//    @Bind(R.id.dogOptions) TextView mDogOptions;
+    @Bind(R.id.dogOptions) TextView mDogOptions;
     @Bind(R.id.dogPhone) TextView mDogPhone;
     @Bind(R.id.dogEmail) TextView mDogEmail;
     @Bind(R.id.dogDescription) TextView mDogDescription;
@@ -67,7 +67,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
         //add areas to be set
         mDogNameTextView.setText(mDog.getName());
         mDogGender.setText("Gender: " + mDog.getGender());
-//        mDogOptions.setText(android.text.TextUtils.join(", ", mDog.getOptions()));
+        mDogOptions.setText(android.text.TextUtils.join(", ", mDog.getOptions()));
         mDogPhone.setText(mDog.getPhone());
         mDogEmail.setText(mDog.getEmail());
         mDogDescription.setText(mDog.getDescription());
@@ -88,9 +88,11 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
             startActivity(phoneIntent);
         }
         if (v == mDogEmail) {
-            Intent emailIntent = new Intent(Intent.ACTION_SENDTO,
-                    Uri.parse(mDog.getEmail()));
-            startActivity(emailIntent);
+            Intent emailIntent = new Intent(Intent.ACTION_SEND);
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {mDog.getEmail()});
+            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "I want to know more about " + mDog.getName());
+            emailIntent.setType("message/rfc822");
+            startActivity(Intent.createChooser(emailIntent, "Choose an E-mail client: "));
         }
         if (v == mDogImageView) {
             Intent webIntent = new Intent(Intent.ACTION_VIEW,

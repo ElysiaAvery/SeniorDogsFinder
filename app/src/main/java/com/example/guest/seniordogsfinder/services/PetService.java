@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import org.json.JSONTokener;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -67,25 +68,41 @@ public class PetService extends AppCompatActivity {
                     JSONObject dogObjectJSON = dogListJSON.getJSONObject(i);
                     String name = dogObjectJSON.getJSONObject("name").getString("$t");
                     String id = dogObjectJSON.getJSONObject("id").getString("$t");
-                    String data = "\"breeds\": {"
+                    String data = "\"breeds\":{ "
                             + "\"breed\": ";
-                    Object json = new JSONTokener(data).nextValue();
+                    String json = new JSONTokener(data).nextValue().toString();
+//                    JSONObject json = new JSONObject();
                     ArrayList<String> breeds = new ArrayList<>();
-                    if (json instanceof JSONObject){
+                    if(json.startsWith("{")) {
                         String breed = dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").getString("$t");
                         breeds.add(breed);
-                    } else if (json instanceof JSONArray) {
+                    } else if (json.startsWith("[")) {
                         JSONArray breedsJSON = dogObjectJSON.getJSONObject("breeds").getJSONArray("breed");
                         for (int y = 0; y < breedsJSON.length(); y++) {
                             breeds.add(breedsJSON.get(y).toString());
                         }
                     }
+//                    if (json.has("\"breeds\":{ "
+//                    + "\"breed\": ")) {
+//
+//                        JSONObject dataObject = json.optJSONObject("breed");
+//                        if (dataObject != null) {
+//                            String breed = dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").getString("$t");
+//                            breeds.add(breed);
+//                        } else {
+//                            JSONArray array = json.optJSONArray("breed");
+//                            JSONArray breedsJSON = dogObjectJSON.getJSONObject("breeds").getJSONArray("breed");
+//                            for (int y = 0; y < breedsJSON.length(); y++) {
+//                                breeds.add(breedsJSON.get(y).toString());
+//                            }
+//                        }
+//                    }
                     String sex = dogObjectJSON.getJSONObject("sex").getString("$t");
                     String description = dogObjectJSON.getJSONObject("description").getString("$t");
                     ArrayList<String> options = new ArrayList<>();
                     JSONArray optionsJSON = dogObjectJSON.getJSONObject("options").getJSONArray("option");
                     for (int j = 0; j < optionsJSON.length(); j++) {
-                        options.add(optionsJSON.get(j).toString());
+                        options.add(optionsJSON.getJSONObject(j).getString("$t").toString());
                     }
                     String contact = dogObjectJSON.getJSONObject("contact").getJSONObject("phone").getString("$t");
                     String email = dogObjectJSON.getJSONObject("contact").getJSONObject("email").getString("$t");
