@@ -68,49 +68,42 @@ public class PetService extends AppCompatActivity {
                     JSONObject dogObjectJSON = dogListJSON.getJSONObject(i);
                     String name = dogObjectJSON.getJSONObject("name").getString("$t");
                     String id = dogObjectJSON.getJSONObject("id").getString("$t");
-                    String data = "\"breeds\":{ "
-                            + "\"breed\": ";
-                    String json = new JSONTokener(data).nextValue().toString();
-//                    JSONObject json = new JSONObject();
                     ArrayList<String> breeds = new ArrayList<>();
-                    if(json.startsWith("{")) {
-                        String breed = dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").getString("$t");
-                        breeds.add(breed);
-                    } else if (json.startsWith("[")) {
+                    if(dogObjectJSON.getJSONObject("breeds").getJSONArray("breed") != null) {
                         JSONArray breedsJSON = dogObjectJSON.getJSONObject("breeds").getJSONArray("breed");
                         for (int y = 0; y < breedsJSON.length(); y++) {
-                            breeds.add(breedsJSON.get(y).toString());
+                            breeds.add(breedsJSON.getJSONObject(y).getString("$t").toString());
                         }
+                    } else if (dogObjectJSON.getJSONObject("breeds").getJSONObject("breed") != null && dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").length() > 0){
+                        String breed = dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").getString("$t");
+                        breeds.add(breed);
                     }
-//                    if (json.has("\"breeds\":{ "
-//                    + "\"breed\": ")) {
-//
-//                        JSONObject dataObject = json.optJSONObject("breed");
-//                        if (dataObject != null) {
-//                            String breed = dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").getString("$t");
-//                            breeds.add(breed);
-//                        } else {
-//                            JSONArray array = json.optJSONArray("breed");
-//                            JSONArray breedsJSON = dogObjectJSON.getJSONObject("breeds").getJSONArray("breed");
-//                            for (int y = 0; y < breedsJSON.length(); y++) {
-//                                breeds.add(breedsJSON.get(y).toString());
-//                            }
-//                        }
-//                    }
                     String sex = dogObjectJSON.getJSONObject("sex").getString("$t");
                     String description = dogObjectJSON.getJSONObject("description").getString("$t");
                     ArrayList<String> options = new ArrayList<>();
                     JSONArray optionsJSON = dogObjectJSON.getJSONObject("options").getJSONArray("option");
                     for (int j = 0; j < optionsJSON.length(); j++) {
                         options.add(optionsJSON.getJSONObject(j).getString("$t").toString());
+                            if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("hasShots")) {
+                                options.remove("hasShots");
+                                options.add("Has shots");
+                            } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("specialNeeds")) {
+                                options.remove("specialNeeds");
+                                options.add("Special needs");
+                            } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("noDogs")) {
+                                options.remove("noDogs");
+                                options.add("No dogs");
+                            } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("noCats")) {
+                                options.remove("noCats");
+                                options.add("No cats");
+                            } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("noChildren")) {
+                                options.remove("noChildren");
+                                options.add("No children");
+                            }
                     }
                     String contact = dogObjectJSON.getJSONObject("contact").getJSONObject("phone").getString("$t");
                     String email = dogObjectJSON.getJSONObject("contact").getJSONObject("email").getString("$t");
-//                    ArrayList<String> photos = new ArrayList<>();
                     String photos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(3).getString("$t");
-//                    for (int t = 0; t < 1; t++) {
-//                        photos.add(photosJSON.get(t).toString());
-//                    }
                     Dog dog = new Dog(name, id, breeds, sex, description, options, contact, email, photos);
                     dogList.add(dog);
                 }
