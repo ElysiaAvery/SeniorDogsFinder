@@ -1,5 +1,7 @@
 package com.example.guest.seniordogsfinder.services;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -56,6 +58,7 @@ public class PetService extends AppCompatActivity {
         setContentView(R.layout.activity_pet_service);
     }
 
+    @TargetApi(Build.VERSION_CODES.KITKAT)
     public ArrayList<Dog> processResults (Response response) {
         ArrayList<Dog> dogList = new ArrayList<>();
 
@@ -69,12 +72,14 @@ public class PetService extends AppCompatActivity {
                     String name = dogObjectJSON.getJSONObject("name").getString("$t");
                     String id = dogObjectJSON.getJSONObject("id").getString("$t");
                     ArrayList<String> breeds = new ArrayList<>();
-                    if(dogObjectJSON.getJSONObject("breeds").getJSONArray("breed") != null) {
+                    while(breeds.size() < dogObjectJSON.getJSONObject("breeds").getJSONArray("breed").length())
+                        try {
                         JSONArray breedsJSON = dogObjectJSON.getJSONObject("breeds").getJSONArray("breed");
                         for (int y = 0; y < breedsJSON.length(); y++) {
                             breeds.add(breedsJSON.getJSONObject(y).getString("$t").toString());
+                            break;
                         }
-                    } else if (dogObjectJSON.getJSONObject("breeds").getJSONObject("breed") != null && dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").length() > 0){
+                    } catch (JSONException d){
                         String breed = dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").getString("$t");
                         breeds.add(breed);
                     }
