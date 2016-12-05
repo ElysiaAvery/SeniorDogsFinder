@@ -72,18 +72,23 @@ public class PetService extends AppCompatActivity {
                     String name = dogObjectJSON.getJSONObject("name").getString("$t");
                     String id = dogObjectJSON.getJSONObject("id").getString("$t");
                     ArrayList<String> breeds = new ArrayList<>();
-                    while(breeds.size() < dogObjectJSON.getJSONObject("breeds").getJSONArray("breed").length())
-                        try {
-                        JSONArray breedsJSON = dogObjectJSON.getJSONObject("breeds").getJSONArray("breed");
-                        for (int y = 0; y < breedsJSON.length(); y++) {
-                            breeds.add(breedsJSON.getJSONObject(y).getString("$t").toString());
-                            break;
-                        }
-                    } catch (JSONException d){
-                        String breed = dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").getString("$t");
+                    String breed;
+                    try {
+                        breed = dogObjectJSON.getJSONObject("breeds").getJSONObject("breed").getString("$t");
                         breeds.add(breed);
+                    } catch (JSONException e){
+                        JSONArray newBreed;
+                        newBreed = dogObjectJSON.getJSONObject("breeds").getJSONArray("breed");
+                        for (int y = 0; y < newBreed.length(); y++) {
+                            breeds.add(newBreed.getJSONObject(y).getString("$t").toString());
+                        }
                     }
                     String sex = dogObjectJSON.getJSONObject("sex").getString("$t");
+                    if(sex.equals("M")) {
+                        sex = "Guy";
+                    } else if (sex.equals("F")) {
+                        sex = "Gal";
+                    }
                     String description = dogObjectJSON.getJSONObject("description").getString("$t");
                     ArrayList<String> options = new ArrayList<>();
                     JSONArray optionsJSON = dogObjectJSON.getJSONObject("options").getJSONArray("option");

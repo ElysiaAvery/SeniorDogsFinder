@@ -3,6 +3,7 @@ package com.example.guest.seniordogsfinder.models;
 import org.parceler.Parcel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Guest on 12/2/16.
