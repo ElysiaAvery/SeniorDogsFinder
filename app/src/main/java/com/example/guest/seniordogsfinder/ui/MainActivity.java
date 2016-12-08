@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDrawerList = (ListView)findViewById(R.id.navList);
-        String[] navigationArray = { "Profile", "Dogs" };
+        String[] navigationArray = { "Profile", "About", "Contact Us", "Resources" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navigationArray);
         mDrawerList.setAdapter(mAdapter);
         ButterKnife.bind(this);
@@ -75,7 +75,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Intent intent = new Intent(MainActivity.this, UserActivity.class);
                         startActivity(intent);
                     } else if(position == 1) {
-                        Intent intent = new Intent(MainActivity.this, DogsActivity.class);
+                        Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+                        startActivity(intent);
+                    } else if(position == 2) {
+                        Intent intent = new Intent(MainActivity.this, ContactUsActivity.class);
+                        startActivity(intent);
+                    } else if(position == 3) {
+                        Intent intent = new Intent(MainActivity.this, ResourcesActivity.class);
                         startActivity(intent);
                     }
                 }
@@ -123,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if(v == mSignOut) {
             auth.signOut();
-            Intent intent = new Intent(MainActivity.this, MainActivity.class);
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else if(v == mFindDogsButton) {
             String location = mLocationInput.getText().toString();

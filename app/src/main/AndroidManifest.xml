@@ -14,8 +14,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -58,7 +57,10 @@
         </activity>
         <activity android:name=".services.PetService" />
         <activity android:name=".ui.DogDetailActivity" />
-        <activity android:name=".adapters.DogPagerAdapter"></activity>
+        <activity android:name=".adapters.DogPagerAdapter" />
+        <activity android:name=".ui.AboutActivity" />
+        <activity android:name=".ui.ContactUsActivity" />
+        <activity android:name=".ui.ResourcesActivity"></activity>
     </application>
 
 </manifest>
