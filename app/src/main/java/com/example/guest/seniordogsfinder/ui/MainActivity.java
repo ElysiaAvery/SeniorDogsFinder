@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         auth = FirebaseAuth.getInstance();
 
-        Typeface goodDogFont = Typeface.createFromAsset(getAssets(), "fonts/GoodDog.otf");
+        Typeface goodDogFont = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         mHeader.setTypeface(goodDogFont);
         Typeface bonvenoFont = Typeface.createFromAsset(getAssets(), "fonts/BonvenoCF-Light.otf");
         mSignIn.setTypeface(bonvenoFont);
