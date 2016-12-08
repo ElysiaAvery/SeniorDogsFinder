@@ -58,9 +58,21 @@
         <activity android:name=".services.PetService" />
         <activity android:name=".ui.DogDetailActivity" />
         <activity android:name=".adapters.DogPagerAdapter" />
-        <activity android:name=".ui.AboutActivity" />
-        <activity android:name=".ui.ContactUsActivity" />
-        <activity android:name=".ui.ResourcesActivity"></activity>
+        <activity android:name=".ui.AboutActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.guest.seniordogsfinder.ui.MainActivity" />
+        </activity>
+        <activity android:name=".ui.ContactUsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.guest.seniordogsfinder.ui.MainActivity" />
+        </activity>
+        <activity android:name=".ui.ResourcesActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.guest.seniordogsfinder.ui.MainActivity" />
+        </activity>
     </application>
 
 </manifest>
