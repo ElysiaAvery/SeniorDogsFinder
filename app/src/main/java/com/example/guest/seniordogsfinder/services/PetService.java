@@ -113,7 +113,7 @@ public class PetService extends AppCompatActivity {
                     }
                     String contact = dogObjectJSON.getJSONObject("contact").getJSONObject("phone").getString("$t");
                     String email = dogObjectJSON.getJSONObject("contact").getJSONObject("email").getString("$t");
-                    String photos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(3).getString("$t");
+                    String photos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(2).getString("$t");
                     Dog dog = new Dog(name, id, breeds, sex, description, options, contact, email, photos);
                     dogList.add(dog);
                 }

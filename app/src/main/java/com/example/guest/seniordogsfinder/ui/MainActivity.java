@@ -38,13 +38,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.locationInput) EditText mLocationInput;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
+    DrawerLayout mDrawerLayout;
+    ActionBarDrawerToggle mToggle;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDrawerList = (ListView)findViewById(R.id.navList);
-        String[] navigationArray = { "Profile", "Organizations", "Dogs" };
+        String[] navigationArray = { "Profile", "Dogs" };
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navigationArray);
         mDrawerList.setAdapter(mAdapter);
         ButterKnife.bind(this);
@@ -56,6 +60,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSignIn.setTypeface(bonvenoFont);
         mSignOut.setTypeface(bonvenoFont);
         mUserPageButton.setTypeface(bonvenoFont);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+        };
+        mDrawerLayout.addDrawerListener(mToggle);
+        mToggle.syncState();
+
 
         mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -63,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     if(position == 0) {
                         Intent intent = new Intent(MainActivity.this, UserActivity.class);
                         startActivity(intent);
-                    } else if(position == 2) {
+                    } else if(position == 1) {
                         Intent intent = new Intent(MainActivity.this, DogsActivity.class);
                         startActivity(intent);
                     }
@@ -97,6 +110,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mUserPageButton.setOnClickListener(this);
         mFindDogsButton.setOnClickListener(this);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        if (mToggle.onOptionsItemSelected(item))
+        {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     @Override
     public void onClick(View v) {
         if(v == mSignIn) {

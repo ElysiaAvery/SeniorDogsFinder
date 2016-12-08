@@ -12,7 +12,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="225dp"
+            android:layout_height="200dp"
             android:id="@+id/dogImageView"
             android:layout_gravity="center_horizontal|top"
             android:scaleType="centerCrop"/>
@@ -29,60 +29,63 @@
             android:text="Dog Name"
             android:layout_gravity="center" />
 
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="44dp"
-            android:textSize="20dp"
-            android:textStyle="italic"
-            android:textColor="@color/colorPrimaryText"
-            android:id="@+id/dogGender"
-            android:gravity="left"
-            android:text="Dog Gender"
+            android:layout_height="wrap_content"
             android:layout_below="@id/dogName"
-            android:layout_gravity="left|bottom"
-            android:layout_marginBottom="200dp"/>
+            android:layout_margin="15dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="options"
-            android:textSize="20dp"
-            android:textColor="@color/colorPrimaryText"
-            android:id="@+id/dogOptions"
-            android:layout_marginTop="320dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textStyle="italic"
+                android:textColor="@color/colorPrimaryText"
+                android:id="@+id/dogGender"
+                android:gravity="left"
+                android:text="Dog Gender" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="phone"
-            android:textSize="20dp"
-            android:drawableLeft="@drawable/ic_call_black_24dp"
-            android:textColor="@color/colorPrimaryText"
-            android:id="@+id/dogPhone"
-            android:layout_marginTop="350dp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="options"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimaryText"
+                android:id="@+id/dogOptions"
+                android:layout_below="@id/dogGender"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:textColor="@color/colorPrimaryText"
-            android:id="@+id/dogDescription"
-            android:gravity="left"
-            android:scrollbars = "vertical"
-            android:text="dog description"
-            android:layout_marginTop="395dp"
-            android:layout_gravity="left" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="phone"
+                android:textSize="20dp"
+                android:drawableLeft="@drawable/ic_call_black_24dp"
+                android:textColor="@color/colorPrimaryText"
+                android:id="@+id/dogPhone"
+                android:layout_below="@id/dogOptions"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="email"
-            android:textSize="20dp"
-            android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
-            android:textColor="@color/colorPrimaryText"
-            android:id="@+id/dogEmail"
-            android:layout_marginTop="370dp"
-            android:layout_gravity="left" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="email"
+                android:textSize="20dp"
+                android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
+                android:textColor="@color/colorPrimaryText"
+                android:id="@+id/dogEmail"
+                android:layout_gravity="left"
+                android:layout_below="@id/dogPhone"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:textColor="@color/colorPrimaryText"
+                android:id="@+id/dogDescription"
+                android:gravity="left"
+                android:scrollbars = "vertical"
+                android:text="dog description"
+                android:layout_below="@id/dogEmail"/>
+        </RelativeLayout>
    </LinearLayout>
 
 </FrameLayout>

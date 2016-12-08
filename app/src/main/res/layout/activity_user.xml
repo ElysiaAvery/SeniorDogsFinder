@@ -7,19 +7,19 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.guest.seniordogsfinder.ui.UserActivity">
 
-    <!--<android.support.design.widget.AppBarLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:elevation="0dp">-->
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
 
-        <!--<android.support.v7.widget.Toolbar-->
-            <!--android:id="@+id/toolbar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="?attr/actionBarSize"-->
-            <!--android:background="?attr/colorPrimaryDark"-->
-            <!--app:layout_scrollFlags="scroll|enterAlways"/>-->
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimaryDark"
+            app:layout_scrollFlags="scroll|enterAlways"/>
 
-    <!--</android.support.design.widget.AppBarLayout>-->
+    </android.support.design.widget.AppBarLayout>
 
     <ImageView
         android:layout_width="match_parent"
@@ -85,7 +85,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/mybutton"
             android:text="@string/btn_change"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
@@ -96,7 +96,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/mybutton"
             android:text="@string/btn_change"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
@@ -107,7 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/mybutton"
             android:text="@string/btn_send"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
@@ -124,7 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/mybutton"
             android:text="@string/btn_remove"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
@@ -171,7 +171,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/colorPrimary"
+            android:background="@drawable/mybutton"
             android:text="@string/btn_your_dogs"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
