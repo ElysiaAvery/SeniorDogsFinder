@@ -78,7 +78,9 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
         public void bindDog(Dog dog) {
             mNameTextView.setText(dog.getName());
             mGenderTextView.setText(dog.getGender());
-            mBreedsTextView.setText(dog.getBreeds().toString());
+            String toBeReplaced = dog.getBreeds().toString().replace("[", "");
+            String dogBreeds = toBeReplaced.replace("]", "");
+            mBreedsTextView.setText(dogBreeds);
 
 
             Picasso.with(mContext)
