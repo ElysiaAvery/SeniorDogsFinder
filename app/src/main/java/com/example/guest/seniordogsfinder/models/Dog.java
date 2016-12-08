@@ -19,10 +19,13 @@ public class Dog {
     private String mPhone;
     private String mEmail;
     private String mPhotos;
+    private String mCity;
+    private String mState;
+    private String mZip;
 
     public Dog() {}
 
-    public Dog(String name, String id, ArrayList<String> breeds, String sex, String description, ArrayList<String> options, String phone, String email, String photos) {
+    public Dog(String name, String id, ArrayList<String> breeds, String sex, String description, ArrayList<String> options, String phone, String email, String photos, String city, String state, String zip) {
         this.mName = name;
         this.mId = id;
         this.mBreeds = breeds;
@@ -32,6 +35,9 @@ public class Dog {
         this.mPhone = phone;
         this.mEmail = email;
         this.mPhotos = photos;
+        this.mCity = city;
+        this.mState = state;
+        this.mZip = zip;
     }
 
     public String getName() {
@@ -69,5 +75,17 @@ public class Dog {
     public String getPhotos() {
         return mPhotos;
     }
+
+    public String getCity() {
+        return mCity;
+    };
+
+    public String getState() {
+        return mState;
+    };
+
+    public String getZip() {
+        return mZip;
+    };
 
 }

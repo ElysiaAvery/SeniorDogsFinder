@@ -58,7 +58,6 @@ public class PetService extends AppCompatActivity {
         setContentView(R.layout.activity_pet_service);
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
     public ArrayList<Dog> processResults (Response response) {
         ArrayList<Dog> dogList = new ArrayList<>();
 
@@ -69,8 +68,11 @@ public class PetService extends AppCompatActivity {
                 JSONArray dogListJSON = dogJSON.getJSONObject("petfinder").getJSONObject("pets").getJSONArray("pet");
                 for (int i = 0; i < dogListJSON.length(); i++) {
                     JSONObject dogObjectJSON = dogListJSON.getJSONObject(i);
+                    // Get dog's name.
                     String name = dogObjectJSON.getJSONObject("name").getString("$t");
+                    // Get dog's id.
                     String id = dogObjectJSON.getJSONObject("id").getString("$t");
+                    // Get dog's breed(s).
                     ArrayList<String> breeds = new ArrayList<>();
                     String breed;
                     try {
@@ -83,13 +85,16 @@ public class PetService extends AppCompatActivity {
                             breeds.add(newBreed.getJSONObject(y).getString("$t").toString());
                         }
                     }
+                    // Get dog's gender.
                     String sex = dogObjectJSON.getJSONObject("sex").getString("$t");
                     if(sex.equals("M")) {
                         sex = "Guy";
                     } else if (sex.equals("F")) {
                         sex = "Gal";
                     }
+                    // Get dog's description.
                     String description = dogObjectJSON.getJSONObject("description").getString("$t");
+                    // Get dog's attributes.
                     ArrayList<String> options = new ArrayList<>();
                     JSONArray optionsJSON = dogObjectJSON.getJSONObject("options").getJSONArray("option");
                     for (int j = 0; j < optionsJSON.length(); j++) {
@@ -111,10 +116,20 @@ public class PetService extends AppCompatActivity {
                                 options.add("No children");
                             }
                     }
+                    // Get Shelter's phone number.
                     String contact = dogObjectJSON.getJSONObject("contact").getJSONObject("phone").getString("$t");
+                    // Get Shelter's email.
                     String email = dogObjectJSON.getJSONObject("contact").getJSONObject("email").getString("$t");
+                    // Get dog's best quality photo.
                     String photos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(2).getString("$t");
-                    Dog dog = new Dog(name, id, breeds, sex, description, options, contact, email, photos);
+                    // Get Shelter's city.
+                    String city = dogObjectJSON.getJSONObject("contact").getJSONObject("city").getString("$t");
+                    // Get Shelter's state.
+                    String state = dogObjectJSON.getJSONObject("contact").getJSONObject("state").getString("$t");
+                    // Get Shelter's zip code.
+                    String zip = dogObjectJSON.getJSONObject("contact").getJSONObject("zip").getString("$t");
+                    // Construct new dog object.
+                    Dog dog = new Dog(name, id, breeds, sex, description, options, contact, email, photos, city, state, zip);
                     dogList.add(dog);
                 }
             }

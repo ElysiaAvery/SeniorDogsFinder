@@ -34,6 +34,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.dogPhone) TextView mDogPhone;
     @Bind(R.id.dogEmail) TextView mDogEmail;
     @Bind(R.id.dogDescription) TextView mDogDescription;
+    @Bind(R.id.addressTextView) TextView mAddressTextView;
 
     private Dog mDog;
 
@@ -66,6 +67,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
 
         //add areas to be set
         mDogNameTextView.setText(mDog.getName());
+        mAddressTextView.setText(mDog.getCity() + ", " + mDog.getState() + " " + mDog.getZip());
         mDogGender.setText("Gender: " + mDog.getGender());
         mDogOptions.setText(android.text.TextUtils.join(", ", mDog.getOptions()));
         mDogPhone.setText(mDog.getPhone());

@@ -57,6 +57,7 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
         @Bind(R.id.dogNameTextView) TextView mNameTextView;
         @Bind(R.id.dogSexTextView) TextView mGenderTextView;
         @Bind(R.id.breedsTextView) TextView mBreedsTextView;
+        @Bind(R.id.addressTextView) TextView mAddressTextView;
         private Context mContext;
 
         public DogViewHolder(View itemView) {
@@ -81,6 +82,7 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
             String toBeReplaced = dog.getBreeds().toString().replace("[", "");
             String dogBreeds = toBeReplaced.replace("]", "");
             mBreedsTextView.setText(dogBreeds);
+            mAddressTextView.setText(dog.getCity() + ", " + dog.getState() + " " + dog.getZip());
 
 
             Picasso.with(mContext)
