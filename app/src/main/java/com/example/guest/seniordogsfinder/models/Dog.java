@@ -10,82 +10,82 @@ import java.util.List;
  */
 @Parcel
 public class Dog {
-    private String mName;
-    private String mId;
-    private ArrayList<String> mBreeds = new ArrayList<>();
-    private String mSex;
-    private String mDescription;
-    private ArrayList<String> mOptions = new ArrayList<>();
-    private String mPhone;
-    private String mEmail;
-    private String mPhotos;
-    private String mCity;
-    private String mState;
-    private String mZip;
+    String name;
+    String id;
+    ArrayList<String> breeds = new ArrayList<>();
+    String sex;
+    String description;
+    ArrayList<String> options = new ArrayList<>();
+    String phone;
+    String email;
+    String photos;
+    String city;
+    String state;
+    String zip;
 
     public Dog() {}
 
     public Dog(String name, String id, ArrayList<String> breeds, String sex, String description, ArrayList<String> options, String phone, String email, String photos, String city, String state, String zip) {
-        this.mName = name;
-        this.mId = id;
-        this.mBreeds = breeds;
-        this.mSex = sex;
-        this.mDescription = description;
-        this.mOptions = options;
-        this.mPhone = phone;
-        this.mEmail = email;
-        this.mPhotos = photos;
-        this.mCity = city;
-        this.mState = state;
-        this.mZip = zip;
+        this.name = name;
+        this.id = id;
+        this.breeds = breeds;
+        this.sex = sex;
+        this.description = description;
+        this.options = options;
+        this.phone = phone;
+        this.email = email;
+        this.photos = photos;
+        this.city = city;
+        this.state = state;
+        this.zip = zip;
     }
 
     public String getName() {
-        return mName;
+        return name;
     }
 
     public String getId() {
-        return mId;
+        return id;
     }
 
     public ArrayList<String> getBreeds() {
-        return mBreeds;
+        return breeds;
     }
 
     public String getGender() {
-        return mSex;
+        return sex;
     }
 
     public String getDescription() {
-        return mDescription;
+        return description;
     }
 
     public ArrayList<String> getOptions() {
-        return mOptions;
+        return options;
     }
 
     public String getPhone() {
-        return mPhone;
+        return phone;
     }
 
     public String getEmail() {
-        return mEmail;
+        return email;
     }
 
     public String getPhotos() {
-        return mPhotos;
+        return photos;
     }
 
     public String getCity() {
-        return mCity;
+        return city;
     };
 
     public String getState() {
-        return mState;
+        return state;
     };
 
     public String getZip() {
-        return mZip;
+        return zip;
     };
 
 }

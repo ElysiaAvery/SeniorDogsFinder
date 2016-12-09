@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.widget.Button;
 
 import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.adapters.DogsListAdapter;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.example.guest.seniordogsfinder.services.PetService;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,6 +31,8 @@ public class DogsActivity extends AppCompatActivity {
     public static final String TAG = DogsActivity.class.getSimpleName();
     private SharedPreferences mSharedPreferences;
     private String mRecentAddress;
+    private DatabaseReference mDogSponsorReference;
+    @Bind(R.id.sponsorDogButton) Button mSponsoredDogButton;
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private DogsListAdapter mAdapter;
@@ -42,6 +47,11 @@ public class DogsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
+
+        mDogSponsorReference = FirebaseDatabase
+                .getInstance()
+                .getReference()
+                .child(Constants.FIREBASE_CHILD_SPONSORED_DOG);
 
         getDogs(location);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
