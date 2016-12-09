@@ -1,8 +1,10 @@
 package com.example.guest.seniordogsfinder.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,6 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.ui.UserActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -39,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayAdapter<String> mAdapter;
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mToggle;
+    private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
 
 
 
@@ -52,18 +57,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerList.setAdapter(mAdapter);
         ButterKnife.bind(this);
         auth = FirebaseAuth.getInstance();
+        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        mEditor = mSharedPreferences.edit();
 
         Typeface goodDogFont = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         mHeader.setTypeface(goodDogFont);
         Typeface bonvenoFont = Typeface.createFromAsset(getAssets(), "fonts/BonvenoCF-Light.otf");
         mSignIn.setTypeface(bonvenoFont);
         mSignOut.setTypeface(bonvenoFont);
+
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
-
-        };
+        mToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {};
         mDrawerLayout.addDrawerListener(mToggle);
         mToggle.syncState();
 
@@ -133,10 +139,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if(v == mFindDogsButton) {
             String location = mLocationInput.getText().toString();
+            if(!(location).equals("")) {
+                addToSharedPreferences(location);
+            }
             Intent intent = new Intent(MainActivity.this, DogsActivity.class);
             intent.putExtra("location", location);
             startActivity(intent);
         }
     }
-
+    private void addToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+    }
 }

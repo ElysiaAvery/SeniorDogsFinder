@@ -97,7 +97,27 @@
                 android:scrollbars = "vertical"
                 android:text="dog description"
                 android:layout_below="@id/dogEmail"/>
+
+
         </RelativeLayout>
    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/mybutton"
+            android:text="Sponsor!"
+            android:drawableRight="@drawable/ic_pets_white_24dp"
+            android:drawableLeft="@drawable/ic_pets_white_24dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:gravity="center"
+            android:textColor="#fff"
+            android:id="@+id/sponsorDogButton"/>
+
+    </RelativeLayout>
 </FrameLayout>
