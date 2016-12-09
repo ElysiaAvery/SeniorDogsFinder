@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.models.Dog;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -107,10 +109,17 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
                     Uri.parse("https://www.petfinder.com/petdetail/" + mDog.getId()));
             startActivity(webIntent);
         } else if (v == mSponsoredDogButton) {
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            String uid = user.getUid();
             DatabaseReference dogRef = FirebaseDatabase
                     .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG);
-            dogRef.push().setValue(mDog);
+                    .getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG)
+                    .child(uid);
+
+            DatabaseReference pushRef = dogRef.push();
+            String pushId = pushRef.getKey();
+            mDog.setPushId(pushId);
+            pushRef.setValue(mDog);
             Toast.makeText(getContext(), "Added to your Sponsored Pups!", Toast.LENGTH_SHORT).show();
         }
 

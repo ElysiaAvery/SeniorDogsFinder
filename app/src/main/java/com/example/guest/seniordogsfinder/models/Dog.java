@@ -22,6 +22,7 @@ public class Dog {
     String city;
     String state;
     String zip;
+    private String pushId;
 
     public Dog() {}
 
@@ -87,5 +88,13 @@ public class Dog {
     public String getZip() {
         return zip;
     };
+
+    public String getPushId() {
+        return pushId;
+    }
+
+    public void setPushId(String pushId) {
+        this.pushId = pushId;
+    }
 
 }
