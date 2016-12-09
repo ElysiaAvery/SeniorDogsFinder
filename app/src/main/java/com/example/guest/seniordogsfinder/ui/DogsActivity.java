@@ -3,11 +3,15 @@ package com.example.guest.seniordogsfinder.ui;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -31,6 +35,7 @@ import okhttp3.Response;
 public class DogsActivity extends AppCompatActivity {
     public static final String TAG = DogsActivity.class.getSimpleName();
     private SharedPreferences mSharedPreferences;
+    private SharedPreferences.Editor mEditor;
     private String mRecentAddress;
     private DatabaseReference mDogSponsorReference;
 
@@ -61,6 +66,30 @@ public class DogsActivity extends AppCompatActivity {
             getDogs(mRecentAddress);
         }
     }
+
+    private void addToSharedPreferences(String location) {
+        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
+    }
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_search, menu);
+//        ButterKnife.bind(this);
+//
+//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        mEditor = mSharedPreferences.edit();
+//
+//        MenuItem menuItem = menu.findItem(R.id.action_search);
+//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        return super.onOptionsItemSelected(item);
+//    }
 
     private void getDogs(String location) {
         final PetService petService = new PetService();
