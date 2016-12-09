@@ -9,11 +9,16 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.models.Dog;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -35,6 +40,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.dogEmail) TextView mDogEmail;
     @Bind(R.id.dogDescription) TextView mDogDescription;
     @Bind(R.id.addressTextView) TextView mAddressTextView;
+    @Bind(R.id.sponsorDogButton) Button mSponsoredDogButton;
 
     private Dog mDog;
 
@@ -78,6 +84,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
         mDogPhone.setOnClickListener(this);
         mDogEmail.setOnClickListener(this);
         mDogImageView.setOnClickListener(this);
+        mSponsoredDogButton.setOnClickListener(this);
 
         return view;
     }
@@ -95,12 +102,18 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "I want to know more about " + mDog.getName());
             emailIntent.setType("message/rfc822");
             startActivity(Intent.createChooser(emailIntent, "Choose an E-mail client: "));
-        }
-        if (v == mDogImageView) {
+        } else if (v == mDogImageView) {
             Intent webIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("https://www.petfinder.com/petdetail/" + mDog.getId()));
             startActivity(webIntent);
+        } else if (v == mSponsoredDogButton) {
+            DatabaseReference dogRef = FirebaseDatabase
+                    .getInstance()
+                    .getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG);
+            dogRef.push().setValue(mDog);
+            Toast.makeText(getContext(), "Added to your Sponsored Pups!", Toast.LENGTH_SHORT).show();
         }
+
     }
 
 }

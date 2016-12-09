@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 
 import com.example.guest.seniordogsfinder.Constants;
@@ -32,7 +33,7 @@ public class DogsActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
     private String mRecentAddress;
     private DatabaseReference mDogSponsorReference;
-    @Bind(R.id.sponsorDogButton) Button mSponsoredDogButton;
+
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
     private DogsListAdapter mAdapter;
