@@ -43,7 +43,9 @@ public class SponsoredDogsActivity extends AppCompatActivity {
     }
 
     private void setUpFirebaseAdapter() {
-        mFirebaseAdapter = new FirebaseRecyclerAdapter<Dog, FirebaseSponsoredDogViewHolder>(Dog.class, R.layout.dog_list_item, FirebaseSponsoredDogViewHolder.class, mDogReference) {
+        mFirebaseAdapter = new FirebaseRecyclerAdapter<Dog, FirebaseSponsoredDogViewHolder>
+                (Dog.class, R.layout.dog_list_item, FirebaseSponsoredDogViewHolder.class, mDogReference) {
+
             @Override
             protected void populateViewHolder(FirebaseSponsoredDogViewHolder viewHolder, Dog model, int position) {
                 viewHolder.bindDog(model);

@@ -12,7 +12,7 @@ import java.util.List;
 public class Dog {
     String name;
     String id;
-    ArrayList<String> breeds = new ArrayList<>();
+    List<String> breeds = new ArrayList<>();
     String sex;
     String description;
     ArrayList<String> options = new ArrayList<>();
@@ -49,7 +49,7 @@ public class Dog {
         return id;
     }
 
-    public ArrayList<String> getBreeds() {
+    public List<String> getBreeds() {
         return breeds;
     }
 
@@ -61,7 +61,7 @@ public class Dog {
         return description;
     }
 
-    public ArrayList<String> getOptions() {
+    public List<String> getOptions() {
         return options;
     }
 

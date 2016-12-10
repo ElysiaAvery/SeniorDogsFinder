@@ -119,7 +119,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
             DatabaseReference pushRef = dogRef.push();
             String pushId = pushRef.getKey();
             mDog.setPushId(pushId);
-            pushRef.setValue(mDog);
+            dogRef.push().setValue(mDog);
             Toast.makeText(getContext(), "Added to your Sponsored Pups!", Toast.LENGTH_SHORT).show();
         }
 

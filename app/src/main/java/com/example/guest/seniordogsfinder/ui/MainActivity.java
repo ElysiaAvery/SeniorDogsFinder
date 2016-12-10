@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayAdapter<String> mAdapter;
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mToggle;
-//    private SharedPreferences mSharedPreferences;
-//    private SharedPreferences.Editor mEditor;
 
 
 
@@ -57,8 +55,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerList.setAdapter(mAdapter);
         ButterKnife.bind(this);
         auth = FirebaseAuth.getInstance();
-//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        mEditor = mSharedPreferences.edit();
 
         Typeface goodDogFont = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         mHeader.setTypeface(goodDogFont);
@@ -139,15 +135,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if(v == mFindDogsButton) {
             String location = mLocationInput.getText().toString();
-//            if(!(location).equals("")) {
-//                addToSharedPreferences(location);
-//            }
             Intent intent = new Intent(MainActivity.this, DogsActivity.class);
             intent.putExtra("location", location);
             startActivity(intent);
         }
     }
-//    private void addToSharedPreferences(String location) {
-//        mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
-//    }
 }

@@ -37,7 +37,6 @@ public class DogsActivity extends AppCompatActivity {
     private SharedPreferences mSharedPreferences;
     private SharedPreferences.Editor mEditor;
     private String mRecentAddress;
-    private DatabaseReference mDogSponsorReference;
 
 
     @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
@@ -54,12 +53,8 @@ public class DogsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String location = intent.getStringExtra("location");
 
-        mDogSponsorReference = FirebaseDatabase
-                .getInstance()
-                .getReference()
-                .child(Constants.FIREBASE_CHILD_SPONSORED_DOG);
-
         getDogs(location);
+//        addToSharedPreferences(location);
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         mRecentAddress = mSharedPreferences.getString(Constants.PREFERENCES_LOCATION_KEY, null);
         if (mRecentAddress != null) {
@@ -70,26 +65,6 @@ public class DogsActivity extends AppCompatActivity {
     private void addToSharedPreferences(String location) {
         mEditor.putString(Constants.PREFERENCES_LOCATION_KEY, location).apply();
     }
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_search, menu);
-//        ButterKnife.bind(this);
-//
-//        mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        mEditor = mSharedPreferences.edit();
-//
-//        MenuItem menuItem = menu.findItem(R.id.action_search);
-//        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-//
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        return super.onOptionsItemSelected(item);
-//    }
 
     private void getDogs(String location) {
         final PetService petService = new PetService();
