@@ -2,6 +2,7 @@ package com.example.guest.seniordogsfinder.fragments;
 
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +45,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.dogDescription) TextView mDogDescription;
     @Bind(R.id.addressTextView) TextView mAddressTextView;
     @Bind(R.id.sponsorDogButton) Button mSponsoredDogButton;
+    @Bind(R.id.dogInfo) RelativeLayout mDogInfo;
 
     private Dog mDog;
 
@@ -81,7 +84,16 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
         mDogPhone.setText(mDog.getPhone());
         mDogEmail.setText(mDog.getEmail());
         mDogDescription.setText(mDog.getDescription());
-        mDogDescription.setMovementMethod(new ScrollingMovementMethod());
+
+        Typeface goodDogFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/LobsterTwo-Regular.otf");
+        mDogNameTextView.setTypeface(goodDogFont);
+        Typeface bonvenoFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/BonvenoCF-Light.otf");
+        mDogDescription.setTypeface(bonvenoFont);
+        mSponsoredDogButton.setTypeface(bonvenoFont);
+        mDogGender.setTypeface(bonvenoFont);
+        mDogOptions.setTypeface(bonvenoFont);
+        mDogPhone.setTypeface(bonvenoFont);
+        mDogEmail.setTypeface(bonvenoFont);
 
         mDogPhone.setOnClickListener(this);
         mDogEmail.setOnClickListener(this);

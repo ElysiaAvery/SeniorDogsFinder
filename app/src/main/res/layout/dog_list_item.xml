@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:scaleType="centerCrop"
-    android:background="#E1F7DB">
+    android:background="@color/colorPrimaryLight">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,9 +32,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Breeds"
+                android:textSize="20dp"
                 android:id="@+id/breedsTextView"
                 android:layout_margin="5dp"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/colorPrimaryDark"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -58,8 +58,8 @@
         </LinearLayout>
 
         <ImageView
-            android:layout_width="213dp"
-            android:layout_height="164dp"
+            android:layout_width="240dp"
+            android:layout_height="175dp"
             android:id="@+id/dogImageView"
             android:scaleType="centerCrop"
             android:layout_alignParentTop="true"/>

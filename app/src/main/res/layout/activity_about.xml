@@ -19,7 +19,7 @@
         android:id="@+id/header"
         android:gravity="center"
         android:textSize="50dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="40dp"
         android:textColor="#fff" />
 
     <TextView
@@ -29,6 +29,7 @@
         android:gravity="center"
         android:layout_below="@+id/header"
         android:textSize="16dp"
+        android:textStyle="bold"
         android:layout_margin="15dp"
         android:textColor="#fff"
         android:text="@string/about_me_string"/>

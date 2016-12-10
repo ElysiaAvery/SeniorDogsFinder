@@ -12,6 +12,8 @@ import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.fragments.DogDetailFragment;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.example.guest.seniordogsfinder.ui.DogDetailActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,7 +31,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Guest on 12/9/16.
  */
-public class FirebaseSponsoredDogViewHolder extends RecyclerView.ViewHolder{
+public class FirebaseSponsoredDogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
 
@@ -40,7 +42,7 @@ public class FirebaseSponsoredDogViewHolder extends RecyclerView.ViewHolder{
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
-//        itemView.setOnClickListener(this);
+        itemView.setOnClickListener(this);
     }
 
     public void bindDog(Dog dog) {
@@ -66,31 +68,31 @@ public class FirebaseSponsoredDogViewHolder extends RecyclerView.ViewHolder{
         addressTextView.setText(dog.getCity() + ", " + dog.getState() + " " + dog.getZip());
     }
 
-//    @Override
-//    public void onClick(View view) {
-//        final ArrayList<Dog> mDogs = new ArrayList<>();
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        String uid = user.getUid();
-//        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG).child(uid);
-//        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-//                    mDogs.add(snapshot.getValue(Dog.class));
-//                }
-//
-//                int itemPosition = getLayoutPosition();
-//
-//                Intent intent = new Intent(mContext, DogDetailActivity.class);
-//                intent.putExtra("position", itemPosition);
-//                intent.putExtra("dogs", Parcels.wrap(mDogs));
-//
-//                mContext.startActivity(intent);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//            }
-//        });
-//    }
+    @Override
+    public void onClick(View view) {
+        final ArrayList<Dog> mDogs = new ArrayList<>();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG).child(uid);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    mDogs.add(snapshot.getValue(Dog.class));
+                }
+
+                int itemPosition = getLayoutPosition();
+
+                Intent intent = new Intent(mContext, DogDetailActivity.class);
+                intent.putExtra("position", itemPosition);
+                intent.putExtra("dogs", Parcels.wrap(mDogs));
+
+                mContext.startActivity(intent);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+            }
+        });
+    }
 }
