@@ -1,8 +1,10 @@
 package com.example.guest.seniordogsfinder.ui;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.guest.seniordogsfinder.R;
@@ -19,7 +22,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SignUpActivity extends AppCompatActivity {
-    private ProgressDialog mAuthProgressDialog;
+    Dialog customProgress;
 
 
     private EditText inputEmail, inputPassword;
@@ -34,7 +37,6 @@ public class SignUpActivity extends AppCompatActivity {
 
         //Get Firebase auth instance
         auth = FirebaseAuth.getInstance();
-        createAuthProgressDialog();
 
         btnSignIn = (Button) findViewById(R.id.sign_in_button);
         btnSignUp = (Button) findViewById(R.id.sign_up_button);
@@ -78,26 +80,23 @@ public class SignUpActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                mAuthProgressDialog.show();
+                    displayCustomProgress("Authenticating...");
                 progressBar.setVisibility(View.VISIBLE);
                 //create user
                 auth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(SignUpActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
-                                Toast.makeText(SignUpActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
-                                progressBar.setVisibility(View.GONE);
-                                mAuthProgressDialog.dismiss();
                                 // If sign in fails, display a message to the user. If sign in succeeds
                                 // the auth state listener will be notified and logic to handle the
                                 // signed in user can be handled in the listener.
                                 if (!task.isSuccessful()) {
                                     Toast.makeText(SignUpActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
-                                            mAuthProgressDialog.dismiss();
                                 } else {
+                                    Toast.makeText(SignUpActivity.this, "Congratulations! Time to meet the Pups!", Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
                                     startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                                    mAuthProgressDialog.dismiss();
                                     finish();
                                 }
                             }
@@ -106,12 +105,28 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
-    private void createAuthProgressDialog() {
-        mAuthProgressDialog = new ProgressDialog(this);
-        mAuthProgressDialog.setTitle("Loading...");
-        mAuthProgressDialog.setMessage("Authenticating with Firebase...");
-        mAuthProgressDialog.setCancelable(false);
+
+    private void displayCustomProgress(String customMsg) {
+        customProgress = new Dialog(SignUpActivity.this,R.style.dialogStyle);
+        customProgress.setContentView(R.layout.cutom_progress_dialog);
+        TextView msg = (TextView) customProgress.findViewById(R.id.loading_text);
+        if (customMsg.length() > 0) {
+            msg.setVisibility(View.VISIBLE);
+            msg.setText(customMsg);
+        } else {
+            msg.setVisibility(View.GONE);
+        }
+        customProgress.setCancelable(true);
+        customProgress.show();
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                customProgress.dismiss();
+            }
+        }, 1500);
     }
+
 
     @Override
     protected void onResume() {
