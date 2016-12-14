@@ -10,4 +10,5 @@ public class Constants {
     public static final String PET_LOCATION = "location";
     public static final String PREFERENCES_LOCATION_KEY = "location";
     public static final String FIREBASE_CHILD_SPONSORED_DOG = "sponsoredDogs";
+    public static final String FIREBASE_QUERY_INDEX = "index";
 }

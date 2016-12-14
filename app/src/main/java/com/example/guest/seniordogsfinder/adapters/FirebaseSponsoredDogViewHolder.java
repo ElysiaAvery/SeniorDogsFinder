@@ -3,6 +3,7 @@ package com.example.guest.seniordogsfinder.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,6 +13,7 @@ import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.fragments.DogDetailFragment;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.example.guest.seniordogsfinder.ui.DogDetailActivity;
+import com.example.guest.seniordogsfinder.util.ItemTouchHelperViewHolder;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,22 +33,23 @@ import butterknife.ButterKnife;
 /**
  * Created by Guest on 12/9/16.
  */
-public class FirebaseSponsoredDogViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class FirebaseSponsoredDogViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder{
     private static final int MAX_WIDTH = 200;
     private static final int MAX_HEIGHT = 200;
+    public ImageView mDogImageView;
 
     View mView;
     Context mContext;
+
 
     public FirebaseSponsoredDogViewHolder(View itemView) {
         super(itemView);
         mView = itemView;
         mContext = itemView.getContext();
-        itemView.setOnClickListener(this);
     }
 
     public void bindDog(Dog dog) {
-        ImageView dogImageView = (ImageView) mView.findViewById(R.id.dogImageView);
+        mDogImageView = (ImageView) mView.findViewById(R.id.dogImageView);
         TextView nameTextView = (TextView) mView.findViewById(R.id.dogNameTextView);
         TextView genderTextView = (TextView) mView.findViewById(R.id.dogSexTextView);
         TextView breedsTextView = (TextView) mView.findViewById(R.id.breedsTextView);
@@ -58,7 +61,7 @@ public class FirebaseSponsoredDogViewHolder extends RecyclerView.ViewHolder impl
                 .load(String.valueOf(dog.getPhotos()))
                 .resize(MAX_WIDTH, MAX_HEIGHT)
                 .centerCrop()
-                .into(dogImageView);
+                .into(mDogImageView);
 
         nameTextView.setText(dog.getName());
         genderTextView.setText(dog.getGender());
@@ -69,30 +72,19 @@ public class FirebaseSponsoredDogViewHolder extends RecyclerView.ViewHolder impl
     }
 
     @Override
-    public void onClick(View view) {
-        final ArrayList<Dog> mDogs = new ArrayList<>();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG).child(uid);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    mDogs.add(snapshot.getValue(Dog.class));
-                }
+    public void onItemSelected() {
+        itemView.animate()
+                .alpha(0.7f)
+                .scaleX(0.9f)
+                .scaleY(0.9f)
+                .setDuration(500);
+    }
 
-                int itemPosition = getLayoutPosition();
-
-                Intent intent = new Intent(mContext, DogDetailActivity.class);
-                intent.putExtra("position", itemPosition);
-                intent.putExtra("dogs", Parcels.wrap(mDogs));
-
-                mContext.startActivity(intent);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });
+    @Override
+    public void onItemClear() {
+        itemView.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f);
     }
 }
