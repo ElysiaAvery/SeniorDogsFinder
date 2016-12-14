@@ -2,6 +2,7 @@ package com.example.guest.seniordogsfinder.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -34,10 +35,6 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        toolbar.setTitle(getString(R.string.app_name));
-//        setSupportActionBar(toolbar);
 
         //get firebase auth instance
         auth = FirebaseAuth.getInstance();
@@ -82,6 +79,19 @@ public class UserActivity extends AppCompatActivity {
         changePassword.setVisibility(View.GONE);
         sendEmail.setVisibility(View.GONE);
         remove.setVisibility(View.GONE);
+
+        Typeface goodDogFont = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
+        yourDogs.setTypeface(goodDogFont);
+        Typeface bonvenoFont = Typeface.createFromAsset(getAssets(), "fonts/BonvenoCF-Light.otf");
+        btnChangeEmail.setTypeface(bonvenoFont);
+        btnChangePassword.setTypeface(bonvenoFont);
+        btnSendResetEmail.setTypeface(bonvenoFont);
+        btnRemoveUser.setTypeface(bonvenoFont);
+        changeEmail.setTypeface(bonvenoFont);
+        changePassword.setTypeface(bonvenoFont);
+        sendEmail.setTypeface(bonvenoFont);
+        remove.setTypeface(bonvenoFont);
+        signOut.setTypeface(bonvenoFont);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
