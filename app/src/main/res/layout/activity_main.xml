@@ -16,29 +16,17 @@
             android:scaleType="centerCrop"
             android:src="@drawable/background"/>
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/locationInput"
-            android:hint="Enter Your Location"
-            android:textColorHint="#fff"
-            android:layout_marginTop="435dp"
-            android:singleLine="true"
-            android:textColor="#fff"
-            android:imeOptions="actionNext"
-            android:gravity="center" />
-
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/findDogsButton"
             android:padding="20dp"
-            android:layout_marginTop="515dp"
+            android:layout_marginTop="450dp"
             android:layout_marginBottom="0dp"
             android:layout_marginRight="50dp"
             android:layout_marginLeft="50dp"
             android:background="@drawable/mybutton"
-            android:text="Submit"
+            android:text="Find A Senior Pup"
             android:gravity="center" />
 
         <Button

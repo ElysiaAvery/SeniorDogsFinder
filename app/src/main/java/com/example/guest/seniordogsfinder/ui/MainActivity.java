@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Bind(R.id.signIn) Button mSignIn;
     @Bind(R.id.signOut) Button mSignOut;
     @Bind(R.id.findDogsButton) Button mFindDogsButton;
-    @Bind(R.id.locationInput) EditText mLocationInput;
     private ListView mDrawerList;
     private ArrayAdapter<String> mAdapter;
     DrawerLayout mDrawerLayout;
@@ -59,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Typeface goodDogFont = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         mHeader.setTypeface(goodDogFont);
         Typeface bonvenoFont = Typeface.createFromAsset(getAssets(), "fonts/BonvenoCF-Light.otf");
+        mFindDogsButton.setTypeface(bonvenoFont);
         mSignIn.setTypeface(bonvenoFont);
         mSignOut.setTypeface(bonvenoFont);
 
@@ -134,9 +134,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else if(v == mFindDogsButton) {
-            String location = mLocationInput.getText().toString();
             Intent intent = new Intent(MainActivity.this, DogsActivity.class);
-            intent.putExtra("location", location);
             startActivity(intent);
         }
     }

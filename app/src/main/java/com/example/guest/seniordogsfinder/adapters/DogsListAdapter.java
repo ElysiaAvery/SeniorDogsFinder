@@ -1,5 +1,7 @@
 package com.example.guest.seniordogsfinder.adapters;
 
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -7,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +34,8 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
     private static final int MAX_HEIGHT = 200;
     private ArrayList<Dog> mDogs = new ArrayList<>();
     private Context mContext;
+    int lastPosition = -1;
+
 
     public DogsListAdapter(Context context, ArrayList<Dog> dogs) {
         mContext = context;
@@ -46,6 +52,14 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
     @Override
     public void onBindViewHolder(DogsListAdapter.DogViewHolder holder, int position) {
         holder.bindDog(mDogs.get(position));
+
+        if(position >lastPosition) {
+
+            Animation set = AnimationUtils.loadAnimation(mContext,
+                    R.anim.scroll_view);
+            holder.itemView.startAnimation(set);
+            lastPosition = position;
+        }
     }
 
     @Override
