@@ -38,6 +38,7 @@ public class FirebaseSponsoredDogViewHolder extends RecyclerView.ViewHolder impl
     private static final int MAX_HEIGHT = 200;
     public ImageView mDogImageView;
 
+
     View mView;
     Context mContext;
 

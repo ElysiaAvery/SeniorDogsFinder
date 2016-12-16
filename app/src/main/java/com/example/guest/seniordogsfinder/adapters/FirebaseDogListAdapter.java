@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.support.v4.view.MotionEventCompat;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
+import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.example.guest.seniordogsfinder.ui.DogDetailActivity;
 import com.example.guest.seniordogsfinder.util.ItemTouchHelperAdapter;
@@ -31,6 +34,7 @@ public class FirebaseDogListAdapter extends FirebaseRecyclerAdapter<Dog, Firebas
     private OnStartDragListener mOnStartDragListener;
     private ChildEventListener mChildEventListener;
     private ArrayList<Dog> mDogs = new ArrayList<>();
+    int lastPosition = -1;
 
 
     public FirebaseDogListAdapter(Class<Dog> modelClass, int modelLayout, Class<FirebaseSponsoredDogViewHolder> viewHolderClass, Query ref, OnStartDragListener onStartDragListener, Context context) {
@@ -79,6 +83,14 @@ public class FirebaseDogListAdapter extends FirebaseRecyclerAdapter<Dog, Firebas
     @Override
     protected void populateViewHolder(final FirebaseSponsoredDogViewHolder viewHolder, Dog model, int position) {
         viewHolder.bindDog(model);
+        if(position >lastPosition) {
+
+            Animation set = AnimationUtils.loadAnimation(mContext,
+                    R.anim.scroll_view);
+            viewHolder.itemView.startAnimation(set);
+            lastPosition = position;
+        }
+
         viewHolder.mDogImageView.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
@@ -88,6 +100,7 @@ public class FirebaseDogListAdapter extends FirebaseRecyclerAdapter<Dog, Firebas
                 }
                 return false;
             }
+
         });
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
