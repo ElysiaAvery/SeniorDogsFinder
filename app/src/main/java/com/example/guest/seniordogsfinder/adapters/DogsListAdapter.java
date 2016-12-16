@@ -4,7 +4,10 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Typeface;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +17,9 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
+import com.example.guest.seniordogsfinder.fragments.DogDetailFragment;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.example.guest.seniordogsfinder.ui.DogDetailActivity;
 import com.squareup.picasso.Picasso;
@@ -73,6 +78,7 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
         @Bind(R.id.dogSexTextView) TextView mGenderTextView;
         @Bind(R.id.breedsTextView) TextView mBreedsTextView;
         @Bind(R.id.addressTextView) TextView mAddressTextView;
+        private int mOrientation;
         private Context mContext;
 
         public DogViewHolder(View itemView) {
@@ -80,15 +86,31 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
             ButterKnife.bind(this, itemView);
             mContext = itemView.getContext();
             itemView.setOnClickListener(this);
+            mOrientation = itemView.getResources().getConfiguration().orientation;
+            if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(0);
+            }
+            itemView.setOnClickListener(this);
+        }
+
+        private void createDetailFragment(int position) {
+            DogDetailFragment detailFragment = DogDetailFragment.newInstance(mDogs, position);
+            FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.dogDetailContainer, detailFragment);
+            ft.commit();
         }
 
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
-            Intent intent = new Intent(mContext, DogDetailActivity.class);
-            intent.putExtra("position", itemPosition);
-            intent.putExtra("dogs", Parcels.wrap(mDogs));
-            mContext.startActivity(intent);
+            if(mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                createDetailFragment(itemPosition);
+            } else {
+                Intent intent = new Intent(mContext, DogDetailActivity.class);
+                intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+                intent.putExtra(Constants.EXTRA_KEY_DOGS, Parcels.wrap(mDogs));
+                mContext.startActivity(intent);
+            }
         }
 
         public void bindDog(Dog dog) {

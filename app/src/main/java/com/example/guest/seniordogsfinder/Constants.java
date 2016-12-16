@@ -13,4 +13,6 @@ public class Constants {
     public static final String FIREBASE_QUERY_INDEX = "index";
     public static final String FIREBASE_QUERY_ID = "id";
     public static final String FIREBASE_QUERY_ADDED = "added";
+    public static final String EXTRA_KEY_POSITION = "position";
+    public static final String EXTRA_KEY_DOGS = "dogs";
 }

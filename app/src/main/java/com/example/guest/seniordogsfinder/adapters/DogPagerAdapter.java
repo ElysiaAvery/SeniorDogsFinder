@@ -22,7 +22,7 @@ public class DogPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
-        return DogDetailFragment.newInstance(mDogs.get(position));
+        return DogDetailFragment.newInstance(mDogs, position);
     }
 
     @Override

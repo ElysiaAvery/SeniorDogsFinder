@@ -28,6 +28,8 @@ import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -47,13 +49,16 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.addressTextView) TextView mAddressTextView;
     @Bind(R.id.sponsorDogButton) Button mSponsoredDogButton;
     @Bind(R.id.dogInfo) RelativeLayout mDogInfo;
+    private ArrayList<Dog> mDogs;
+    private int mPosition;
 
     private Dog mDog;
 
-    public static DogDetailFragment newInstance(Dog dog) {
+    public static DogDetailFragment newInstance(ArrayList<Dog> dogs, Integer position) {
         DogDetailFragment dogDetailFragment = new DogDetailFragment();
         Bundle args = new Bundle();
-        args.putParcelable("dogs", Parcels.wrap(dog));
+        args.putParcelable(Constants.EXTRA_KEY_DOGS, Parcels.wrap(dogs));
+        args.putInt(Constants.EXTRA_KEY_POSITION, position);
         dogDetailFragment.setArguments(args);
         return dogDetailFragment;
     }
@@ -61,7 +66,9 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDog = Parcels.unwrap(getArguments().getParcelable("dogs"));
+        mDog = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_DOGS));
+        mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
+        mDog = mDogs.get(mPosition);
     }
 
 
