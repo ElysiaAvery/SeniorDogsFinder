@@ -23,52 +23,12 @@ import com.google.firebase.database.Query;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class SponsoredDogsActivity extends AppCompatActivity implements OnStartDragListener {
-    private DatabaseReference mDogReference;
-    private FirebaseDogListAdapter mFirebaseAdapter;
-    private ItemTouchHelper mItemTouchHelper;
-
-
-    @Bind(R.id.recyclerView) RecyclerView mRecyclerView;
+public class SponsoredDogsActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_dogs);
-        ButterKnife.bind(this);
-
-        setUpFirebaseAdapter();
-    }
-
-    private void setUpFirebaseAdapter() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
-
-        Query query = FirebaseDatabase.getInstance()
-                .getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG)
-                .child(uid)
-                .orderByChild(Constants.FIREBASE_QUERY_INDEX);
-
-        mFirebaseAdapter = new FirebaseDogListAdapter(Dog.class, R.layout.dog_list_item_drag, FirebaseSponsoredDogViewHolder.class, query, this, this);
-
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mFirebaseAdapter);
-
-        ItemTouchHelper.Callback callback = new SimpleItemTouchHelperCallback(mFirebaseAdapter);
-        mItemTouchHelper = new ItemTouchHelper(callback);
-        mItemTouchHelper.attachToRecyclerView(mRecyclerView);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mFirebaseAdapter.cleanup();
-    }
-
-    @Override
-    public void onStartDrag(RecyclerView.ViewHolder viewHolder) {
-        mItemTouchHelper.startDrag(viewHolder);
     }
 }
