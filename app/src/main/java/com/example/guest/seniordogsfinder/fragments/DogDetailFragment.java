@@ -123,12 +123,16 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
             startActivity(webIntent);
         } else if (v == mSponsoredDogButton) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            String uid = user.getUid();
-            String dogId = mDog.getId();
-            DatabaseReference dogRef = FirebaseDatabase
-                    .getInstance()
-                    .getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG)
-                    .child(uid);
+            if(user == null) {
+                Toast.makeText(getContext(), "You have to be logged in to sponsor a pup!", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                String uid = user.getUid();
+                String dogId = mDog.getId();
+                DatabaseReference dogRef = FirebaseDatabase
+                        .getInstance()
+                        .getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG)
+                        .child(uid);
 
 //            DatabaseReference mIdReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG).child(uid).child(Constants.FIREBASE_QUERY_ID).child(String.valueOf(dogId));
 //            String stringId = "https://seniordogsfinder.firebaseio.com/sponsoredDogs/"+ uid + "/id/" + mDog.getId();
@@ -141,6 +145,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
                 mDog.setPushId(pushId);
                 dogRef.push().setValue(mDog);
                 Toast.makeText(getContext(), "Added to your Sponsored Pups!", Toast.LENGTH_SHORT).show();
+            }
 
         }
 
