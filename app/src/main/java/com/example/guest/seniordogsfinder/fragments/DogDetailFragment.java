@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -123,16 +124,24 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
         } else if (v == mSponsoredDogButton) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String uid = user.getUid();
+            String dogId = mDog.getId();
             DatabaseReference dogRef = FirebaseDatabase
                     .getInstance()
                     .getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG)
                     .child(uid);
 
-            DatabaseReference pushRef = dogRef.push();
-            String pushId = pushRef.getKey();
-            mDog.setPushId(pushId);
-            dogRef.push().setValue(mDog);
-            Toast.makeText(getContext(), "Added to your Sponsored Pups!", Toast.LENGTH_SHORT).show();
+//            DatabaseReference mIdReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG).child(uid).child(Constants.FIREBASE_QUERY_ID).child(String.valueOf(dogId));
+//            String stringId = "https://seniordogsfinder.firebaseio.com/sponsoredDogs/"+ uid + "/id/" + mDog.getId();
+//            if (stringId.matches(String.valueOf(mIdReference))) {
+//                Toast.makeText(getContext(), "You're already sponsoring this pup!", Toast.LENGTH_SHORT).show();
+//                return;
+//            } else {
+                DatabaseReference pushRef = dogRef.push();
+                String pushId = pushRef.getKey();
+                mDog.setPushId(pushId);
+                dogRef.push().setValue(mDog);
+                Toast.makeText(getContext(), "Added to your Sponsored Pups!", Toast.LENGTH_SHORT).show();
+
         }
 
     }
