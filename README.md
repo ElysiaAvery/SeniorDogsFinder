@@ -3,6 +3,8 @@ A mobile app that allows the user to search senior dogs. This will allow them to
 
 #### By _[**Elysia Avery Nason**](https://github.com/elysiaavery)_
 
+<img src="/app/src/main/res/drawable/screenshot.png" alt="a screenshot of the web app">
+
 ## Setup/Installation Requirements
 
 * In your terminal window:
