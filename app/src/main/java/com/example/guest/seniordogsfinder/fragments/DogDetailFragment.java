@@ -51,14 +51,16 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
     @Bind(R.id.dogInfo) RelativeLayout mDogInfo;
     private ArrayList<Dog> mDogs;
     private int mPosition;
+    private String mSource;
 
     private Dog mDog;
 
-    public static DogDetailFragment newInstance(ArrayList<Dog> dogs, Integer position) {
+    public static DogDetailFragment newInstance(ArrayList<Dog> dogs, Integer position, String source) {
         DogDetailFragment dogDetailFragment = new DogDetailFragment();
         Bundle args = new Bundle();
         args.putParcelable(Constants.EXTRA_KEY_DOGS, Parcels.wrap(dogs));
         args.putInt(Constants.EXTRA_KEY_POSITION, position);
+        args.putString(Constants.KEY_SOURCE, source);
         dogDetailFragment.setArguments(args);
         return dogDetailFragment;
     }
@@ -69,6 +71,8 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
         mDogs = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_DOGS));
         mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
         mDog = mDogs.get(mPosition);
+        mSource = getArguments().getString(Constants.KEY_SOURCE);
+        setHasOptionsMenu(true);
     }
 
 
@@ -77,6 +81,12 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dog_detail, container, false);
         ButterKnife.bind(this, view);
+
+        if (mSource.equals(Constants.SOURCE_SAVED)) {
+            mSponsoredDogButton.setVisibility(View.GONE);
+        } else {
+            mSponsoredDogButton.setOnClickListener(this);
+        }
 
         Picasso.with(view.getContext())
                 .load(String.valueOf(mDog.getPhotos()))
@@ -106,7 +116,6 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
         mDogPhone.setOnClickListener(this);
         mDogEmail.setOnClickListener(this);
         mDogImageView.setOnClickListener(this);
-        mSponsoredDogButton.setOnClickListener(this);
 
         return view;
     }

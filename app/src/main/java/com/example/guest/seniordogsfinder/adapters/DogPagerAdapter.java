@@ -14,15 +14,17 @@ import java.util.ArrayList;
  */
 public class DogPagerAdapter extends FragmentPagerAdapter {
     private ArrayList<Dog> mDogs;
+    private String mSource;
 
-    public DogPagerAdapter(FragmentManager fm, ArrayList<Dog> dogs) {
+    public DogPagerAdapter(FragmentManager fm, ArrayList<Dog> dogs, String source) {
         super(fm);
         mDogs = dogs;
+        mSource = source;
     }
 
     @Override
     public Fragment getItem(int position) {
-        return DogDetailFragment.newInstance(mDogs, position);
+        return DogDetailFragment.newInstance(mDogs, position, mSource);
     }
 
     @Override

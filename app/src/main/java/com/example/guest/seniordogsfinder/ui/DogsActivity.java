@@ -41,6 +41,7 @@ public class DogsActivity extends AppCompatActivity implements OnDogSelectedList
     public static final String TAG = DogsActivity.class.getSimpleName();
     private Integer mPosition;
     ArrayList<Dog> mDogs;
+    String mSource;
 
 
     @Override
@@ -53,11 +54,13 @@ public class DogsActivity extends AppCompatActivity implements OnDogSelectedList
             if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
                 mPosition = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
                 mDogs = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_DOGS));
+                mSource = savedInstanceState.getString(Constants.KEY_SOURCE);
 
                 if (mPosition != null && mDogs != null) {
                     Intent intent = new Intent(this, DogDetailActivity.class);
                     intent.putExtra(Constants.EXTRA_KEY_POSITION, mPosition);
                     intent.putExtra(Constants.EXTRA_KEY_DOGS, Parcels.wrap(mDogs));
+                    intent.putExtra(Constants.KEY_SOURCE, mSource);
                     startActivity(intent);
                 }
 
@@ -74,14 +77,16 @@ public class DogsActivity extends AppCompatActivity implements OnDogSelectedList
         if (mPosition != null && mDogs != null) {
             outState.putInt(Constants.EXTRA_KEY_POSITION, mPosition);
             outState.putParcelable(Constants.EXTRA_KEY_DOGS, Parcels.wrap(mDogs));
+            outState.putString(Constants.KEY_SOURCE, mSource);
         }
 
     }
 
     @Override
-    public void onDogSelected(Integer position, ArrayList<Dog> restaurants) {
+    public void onDogSelected(Integer position, ArrayList<Dog> restaurants, String source) {
         mPosition = position;
         mDogs = restaurants;
+        mSource = source;
     }
 
 }

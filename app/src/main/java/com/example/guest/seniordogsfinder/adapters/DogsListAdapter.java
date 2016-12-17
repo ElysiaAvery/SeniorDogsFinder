@@ -101,13 +101,14 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
-            mDogSelectedListener.onDogSelected(itemPosition, mDogs);
+            mDogSelectedListener.onDogSelected(itemPosition, mDogs, Constants.SOURCE_FIND);
             if(mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {
                 Intent intent = new Intent(mContext, DogDetailActivity.class);
                 intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
                 intent.putExtra(Constants.EXTRA_KEY_DOGS, Parcels.wrap(mDogs));
+                intent.putExtra(Constants.KEY_SOURCE, Constants.SOURCE_FIND);
                 mContext.startActivity(intent);
             }
         }
@@ -130,7 +131,7 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
     }
 
     private void createDetailFragment(int position) {
-        DogDetailFragment detailFragment = DogDetailFragment.newInstance(mDogs, position);
+        DogDetailFragment detailFragment = DogDetailFragment.newInstance(mDogs, position, Constants.SOURCE_FIND);
         FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
         ft.replace(R.id.dogDetailContainer, detailFragment);
         ft.commit();

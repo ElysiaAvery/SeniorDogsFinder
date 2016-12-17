@@ -8,5 +8,5 @@ import java.util.ArrayList;
  * Created by Guest on 12/17/16.
  */
 public interface OnDogSelectedListener {
-    public void onDogSelected(Integer position, ArrayList<Dog> dogs);
+    public void onDogSelected(Integer position, ArrayList<Dog> dogs, String source);
 }

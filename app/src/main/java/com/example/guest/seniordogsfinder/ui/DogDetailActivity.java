@@ -20,6 +20,7 @@ public class DogDetailActivity extends AppCompatActivity {
     @Bind(R.id.viewPager) ViewPager mViewPager;
     private DogPagerAdapter adapterViewPager;
     ArrayList<Dog> mDogs = new ArrayList<>();
+    private String mSource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +29,10 @@ public class DogDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mDogs = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_DOGS));
+        mSource = getIntent().getStringExtra(Constants.KEY_SOURCE);
         int startingPosition = getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
 
-        adapterViewPager = new DogPagerAdapter(getSupportFragmentManager(), mDogs);
+        adapterViewPager = new DogPagerAdapter(getSupportFragmentManager(), mDogs, mSource);
         mViewPager.setAdapter(adapterViewPager);
         mViewPager.setCurrentItem(startingPosition);
     }
