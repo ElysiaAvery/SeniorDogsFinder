@@ -91,6 +91,7 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
 
             mContext = itemView.getContext();
             mOrientation = itemView.getResources().getConfiguration().orientation;
+            mDogSelectedListener = dogSelectedListener;
             mDogs = dogs;
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(0);
