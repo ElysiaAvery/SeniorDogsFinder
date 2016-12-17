@@ -66,7 +66,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDog = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_DOGS));
+        mDogs = Parcels.unwrap(getArguments().getParcelable(Constants.EXTRA_KEY_DOGS));
         mPosition = getArguments().getInt(Constants.EXTRA_KEY_POSITION);
         mDog = mDogs.get(mPosition);
     }

@@ -93,13 +93,6 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
             itemView.setOnClickListener(this);
         }
 
-        private void createDetailFragment(int position) {
-            DogDetailFragment detailFragment = DogDetailFragment.newInstance(mDogs, position);
-            FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.dogDetailContainer, detailFragment);
-            ft.commit();
-        }
-
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
@@ -128,5 +121,12 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
                     .centerCrop()
                     .into(mDogImageView);
         }
+    }
+
+    private void createDetailFragment(int position) {
+        DogDetailFragment detailFragment = DogDetailFragment.newInstance(mDogs, position);
+        FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.dogDetailContainer, detailFragment);
+        ft.commit();
     }
 }

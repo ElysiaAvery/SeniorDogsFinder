@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="5dp"
+    android:background="@color/colorPrimaryLight">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="130dp"
+            android:layout_height="100dp"
+            android:id="@+id/dogImageView"
+            android:scaleType="centerCrop"
+            android:layout_alignParentTop="true" />
+
+        <ImageView
+            android:id="@+id/dragIcon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignRight="@id/dogImageView"
+            android:layout_alignBottom="@id/dogImageView"
+            android:gravity="bottom|right"
+            android:src="@mipmap/ic_drag"
+            android:layout_gravity="bottom|right"
+            android:baselineAlignBottom="false" />
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dogNameTextView"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:layout_margin="5dp"
+            android:layout_alignParentTop="true"
+            android:text="Dog Name"
+            android:layout_gravity="left"
+            android:textColor="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Breeds"
+            android:textSize="15dp"
+            android:id="@+id/breedsTextView"
+            android:textColor="@color/colorPrimaryDark"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/dogSexTextView"
+            android:text="gender"
+            android:layout_below="@+id/dogNameTextView"
+            android:layout_gravity="left"
+            android:textStyle="italic"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="address"
+            android:id="@+id/addressTextView"
+            android:layout_gravity="left" />
+
+    </LinearLayout>
+
+</LinearLayout>

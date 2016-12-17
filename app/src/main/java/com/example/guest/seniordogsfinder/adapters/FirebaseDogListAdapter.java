@@ -2,13 +2,18 @@ package com.example.guest.seniordogsfinder.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.MotionEventCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 
+import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
+import com.example.guest.seniordogsfinder.fragments.DogDetailFragment;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.example.guest.seniordogsfinder.ui.DogDetailActivity;
 import com.example.guest.seniordogsfinder.util.ItemTouchHelperAdapter;
@@ -35,6 +40,7 @@ public class FirebaseDogListAdapter extends FirebaseRecyclerAdapter<Dog, Firebas
     private ChildEventListener mChildEventListener;
     private ArrayList<Dog> mDogs = new ArrayList<>();
     int lastPosition = -1;
+    private int mOrientation;
 
 
     public FirebaseDogListAdapter(Class<Dog> modelClass, int modelLayout, Class<FirebaseSponsoredDogViewHolder> viewHolderClass, Query ref, OnStartDragListener onStartDragListener, Context context) {
@@ -83,7 +89,13 @@ public class FirebaseDogListAdapter extends FirebaseRecyclerAdapter<Dog, Firebas
     @Override
     protected void populateViewHolder(final FirebaseSponsoredDogViewHolder viewHolder, Dog model, int position) {
         viewHolder.bindDog(model);
-        if(position >lastPosition) {
+
+        mOrientation = viewHolder.itemView.getResources().getConfiguration().orientation;
+        if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            createDetailFragment(0);
+        }
+
+        if(position > lastPosition) {
 
             Animation set = AnimationUtils.loadAnimation(mContext,
                     R.anim.scroll_view);
@@ -113,6 +125,28 @@ public class FirebaseDogListAdapter extends FirebaseRecyclerAdapter<Dog, Firebas
                 mContext.startActivity(intent);
             }
         });
+
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int itemPosition = viewHolder.getAdapterPosition();
+                if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                    createDetailFragment(itemPosition);
+                } else {
+                    Intent intent = new Intent(mContext, DogDetailActivity.class);
+                    intent.putExtra(Constants.EXTRA_KEY_POSITION, itemPosition);
+                    intent.putExtra(Constants.EXTRA_KEY_DOGS, Parcels.wrap(mDogs));
+                    mContext.startActivity(intent);
+                }
+            }
+        });
+    }
+
+    private void createDetailFragment(int position) {
+        DogDetailFragment detailFragment = DogDetailFragment.newInstance(mDogs, position);
+        FragmentTransaction ft = ((FragmentActivity) mContext).getSupportFragmentManager().beginTransaction();
+        ft.replace(R.id.dogDetailContainer, detailFragment);
+        ft.commit();
     }
 
     @Override

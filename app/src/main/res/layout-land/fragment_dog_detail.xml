@@ -1,0 +1,133 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E1F7DB"
+    tools:context="com.example.guest.seniordogsfinder.fragments.DogDetailFragment">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:id="@+id/dogImageView"
+            android:layout_gravity="right"
+            android:scaleType="centerCrop"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40dp"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/dogName"
+            android:gravity="center"
+            android:layout_below="@id/dogImageView"
+            android:text="Dog Name"/>
+
+        <TextView
+            android:layout_width="68dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/addressTextView"
+            android:text="address"
+            android:textSize="15dp"
+            android:gravity="center"/>
+
+        <ScrollView
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="130dp">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/dogName"
+                android:layout_margin="15dp"
+                android:id="@+id/dogInfo">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textStyle="italic"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:id="@+id/dogGender"
+                    android:gravity="left"
+                    android:text="Dog Gender" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="options"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:id="@+id/dogOptions"
+                    android:layout_below="@id/dogGender"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="phone"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:drawableLeft="@drawable/ic_call_black_24dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:id="@+id/dogPhone"
+                    android:layout_below="@id/dogOptions"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="email"
+                    android:textSize="20dp"
+                    android:layout_marginBottom="5dp"
+                    android:drawableLeft="@drawable/ic_mail_outline_black_24dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:id="@+id/dogEmail"
+                    android:layout_gravity="left"
+                    android:layout_below="@id/dogPhone"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20dp"
+                    android:textColor="@color/colorPrimaryText"
+                    android:id="@+id/dogDescription"
+                    android:gravity="left"
+                    android:layout_marginBottom="5dp"
+                    android:text="dog description"
+                    android:layout_below="@id/dogEmail"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/dogPhone"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true">
+
+                </RelativeLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/mybutton"
+                    android:text="Sponsor!"
+                    android:drawableRight="@drawable/ic_pets_white_24dp"
+                    android:drawableLeft="@drawable/ic_pets_white_24dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:gravity="right"
+                    android:textColor="#fff"
+                    android:id="@+id/sponsorDogButton"
+                    android:layout_below="@+id/dogGender"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+            </RelativeLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>
