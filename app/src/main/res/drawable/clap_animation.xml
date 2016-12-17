@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/clap" android:oneshot="false">
+    <item android:drawable="@drawable/clap0" android:duration="100"/>
+    <item android:drawable="@drawable/clap1" android:duration="100"/>
+    <item android:drawable="@drawable/clap2" android:duration="100"/>
+    <item android:drawable="@drawable/clap3" android:duration="100"/>
+    <item android:drawable="@drawable/clap4" android:duration="100"/>
+    <item android:drawable="@drawable/clap5" android:duration="100"/>
+    <item android:drawable="@drawable/clap6" android:duration="100"/>
+    <item android:drawable="@drawable/clap7" android:duration="100"/>
+    <item android:drawable="@drawable/clap8" android:duration="100"/>
+    <item android:drawable="@drawable/clap9" android:duration="100"/>
+    <item android:drawable="@drawable/clap10" android:duration="75"/>
+    <item android:drawable="@drawable/clap11" android:duration="75"/>
+    <item android:drawable="@drawable/clap12" android:duration="100"/>
+    <item android:drawable="@drawable/clap13" android:duration="100"/>
+    <item android:drawable="@drawable/clap14" android:duration="100"/>
+    <item android:drawable="@drawable/clap15" android:duration="100"/>
+    <item android:drawable="@drawable/clap16" android:duration="100"/>
+    <item android:drawable="@drawable/clap17" android:duration="100"/>
+    <item android:drawable="@drawable/clap18" android:duration="100"/>
+    <item android:drawable="@drawable/clap19" android:duration="100"/>
+    <item android:drawable="@drawable/clap20" android:duration="100"/>
+    <item android:drawable="@drawable/clap21" android:duration="100"/>
+    <item android:drawable="@drawable/clap22" android:duration="100"/>
+    <item android:drawable="@drawable/clap23" android:duration="100"/>
+</animation-list>
