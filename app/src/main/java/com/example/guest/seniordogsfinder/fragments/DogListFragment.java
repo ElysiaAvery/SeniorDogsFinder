@@ -1,6 +1,7 @@
 package com.example.guest.seniordogsfinder.fragments;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -21,6 +22,7 @@ import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.adapters.DogsListAdapter;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.example.guest.seniordogsfinder.services.PetService;
+import com.example.guest.seniordogsfinder.util.OnDogSelectedListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,6 +44,17 @@ public class DogListFragment extends Fragment {
     RecyclerView mRecyclerView;
     private DogsListAdapter mAdapter;
     public ArrayList<Dog> mDogs = new ArrayList<>();
+    private OnDogSelectedListener mOnDogSelectedListener;
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mOnDogSelectedListener = (OnDogSelectedListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + e.getMessage());
+        }
+    }
 
 
     public DogListFragment() {
@@ -107,7 +120,7 @@ public class DogListFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        mAdapter = new DogsListAdapter(getActivity(), mDogs);
+                        mAdapter = new DogsListAdapter(getActivity(), mDogs, mOnDogSelectedListener);
 
                         mRecyclerView.setAdapter(mAdapter);
                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());

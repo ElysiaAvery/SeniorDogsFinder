@@ -2,6 +2,7 @@ package com.example.guest.seniordogsfinder.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,8 +22,11 @@ import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.adapters.DogsListAdapter;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.example.guest.seniordogsfinder.services.PetService;
+import com.example.guest.seniordogsfinder.util.OnDogSelectedListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.parceler.Parcels;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -33,14 +37,51 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class DogsActivity extends AppCompatActivity {
+public class DogsActivity extends AppCompatActivity implements OnDogSelectedListener {
     public static final String TAG = DogsActivity.class.getSimpleName();
+    private Integer mPosition;
+    ArrayList<Dog> mDogs;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dogs);
+
+        if (savedInstanceState != null) {
+
+            if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+                mPosition = savedInstanceState.getInt(Constants.EXTRA_KEY_POSITION);
+                mDogs = Parcels.unwrap(savedInstanceState.getParcelable(Constants.EXTRA_KEY_DOGS));
+
+                if (mPosition != null && mDogs != null) {
+                    Intent intent = new Intent(this, DogDetailActivity.class);
+                    intent.putExtra(Constants.EXTRA_KEY_POSITION, mPosition);
+                    intent.putExtra(Constants.EXTRA_KEY_DOGS, Parcels.wrap(mDogs));
+                    startActivity(intent);
+                }
+
+            }
+
+        }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (mPosition != null && mDogs != null) {
+            outState.putInt(Constants.EXTRA_KEY_POSITION, mPosition);
+            outState.putParcelable(Constants.EXTRA_KEY_DOGS, Parcels.wrap(mDogs));
+        }
+
+    }
+
+    @Override
+    public void onDogSelected(Integer position, ArrayList<Dog> restaurants) {
+        mPosition = position;
+        mDogs = restaurants;
     }
 
 }

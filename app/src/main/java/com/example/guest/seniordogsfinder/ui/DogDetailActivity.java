@@ -4,6 +4,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.adapters.DogPagerAdapter;
 import com.example.guest.seniordogsfinder.models.Dog;
@@ -26,8 +27,8 @@ public class DogDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_dog_detail);
         ButterKnife.bind(this);
 
-        mDogs = Parcels.unwrap(getIntent().getParcelableExtra("dogs"));
-        int startingPosition = getIntent().getIntExtra("position", 0);
+        mDogs = Parcels.unwrap(getIntent().getParcelableExtra(Constants.EXTRA_KEY_DOGS));
+        int startingPosition = getIntent().getIntExtra(Constants.EXTRA_KEY_POSITION, 0);
 
         adapterViewPager = new DogPagerAdapter(getSupportFragmentManager(), mDogs);
         mViewPager.setAdapter(adapterViewPager);

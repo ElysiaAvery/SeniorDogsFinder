@@ -22,6 +22,7 @@ import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.fragments.DogDetailFragment;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.example.guest.seniordogsfinder.ui.DogDetailActivity;
+import com.example.guest.seniordogsfinder.util.OnDogSelectedListener;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
@@ -40,17 +41,18 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
     private ArrayList<Dog> mDogs = new ArrayList<>();
     private Context mContext;
     int lastPosition = -1;
+    private OnDogSelectedListener mOnDogSelectedListener;
 
-
-    public DogsListAdapter(Context context, ArrayList<Dog> dogs) {
+    public DogsListAdapter(Context context, ArrayList<Dog> dogs, OnDogSelectedListener dogSelectedListener) {
         mContext = context;
         mDogs = dogs;
+        mOnDogSelectedListener = dogSelectedListener;
     }
 
     @Override
     public DogsListAdapter.DogViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.dog_list_item, parent, false);
-        DogViewHolder viewHolder = new DogViewHolder(view);
+        DogViewHolder viewHolder = new DogViewHolder(view, mDogs, mOnDogSelectedListener);
         return viewHolder;
     }
 
@@ -80,13 +82,16 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
         @Bind(R.id.addressTextView) TextView mAddressTextView;
         private int mOrientation;
         private Context mContext;
+        private ArrayList<Dog> mDogs = new ArrayList<>();
+        private OnDogSelectedListener mDogSelectedListener;
 
-        public DogViewHolder(View itemView) {
+        public DogViewHolder(View itemView, ArrayList<Dog> dogs, OnDogSelectedListener dogSelectedListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
             mContext = itemView.getContext();
-            itemView.setOnClickListener(this);
             mOrientation = itemView.getResources().getConfiguration().orientation;
+            mDogs = dogs;
             if (mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(0);
             }
@@ -96,6 +101,7 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
         @Override
         public void onClick(View v) {
             int itemPosition = getLayoutPosition();
+            mDogSelectedListener.onDogSelected(itemPosition, mDogs);
             if(mOrientation == Configuration.ORIENTATION_LANDSCAPE) {
                 createDetailFragment(itemPosition);
             } else {
@@ -112,7 +118,7 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
             String toBeReplaced = dog.getBreeds().toString().replace("[", "");
             String dogBreeds = toBeReplaced.replace("]", "");
             mBreedsTextView.setText(dogBreeds);
-            mAddressTextView.setText(dog.getCity() + ", " + dog.getState() + " " + dog.getZip() + " " + dog.getId());
+            mAddressTextView.setText(dog.getCity() + ", " + dog.getState() + " " + dog.getZip());
 
 
             Picasso.with(mContext)
