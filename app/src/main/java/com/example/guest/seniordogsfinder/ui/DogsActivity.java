@@ -83,9 +83,9 @@ public class DogsActivity extends AppCompatActivity implements OnDogSelectedList
     }
 
     @Override
-    public void onDogSelected(Integer position, ArrayList<Dog> birds, String source) {
+    public void onDogSelected(Integer position, ArrayList<Dog> dogs, String source) {
         mPosition = position;
-        mDogs = birds;
+        mDogs = dogs;
         mSource = source;
     }
 
