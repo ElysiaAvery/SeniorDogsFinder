@@ -1,4 +1,4 @@
-# SeniorDogsFinder
+# Senior Pup!
 Hi! My Name is Elysia Avery Nason and I created Senior Pup! I made this app with the intent to raise awareness of the disparity in the adoption rates between young dogs and senior dogs. My hope was to motivate people to either adopt these calm, and loving older dogs or to donate to organizations hosting these dogs in some way. This allows users who are not able to adopt or own a dog, to still have the rewarding experience of caring for a dog. I hope you enjoy!
 
 #### By _[**Elysia Avery Nason**](https://github.com/elysiaavery)_
