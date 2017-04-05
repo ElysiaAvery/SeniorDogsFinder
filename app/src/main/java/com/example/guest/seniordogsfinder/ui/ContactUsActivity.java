@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.ButtonBarLayout;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,6 +18,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class ContactUsActivity extends AppCompatActivity implements View.OnClickListener {
+    public static final String TAG = ContactUsActivity.class.getSimpleName();
     @Bind(R.id.animatedBackground) ImageView mAnimatedBackground;
     @Bind(R.id.travelBackground) ImageView mTravelBackground;
     @Bind(R.id.howTo) TextView mHowTo;
@@ -75,5 +77,4 @@ public class ContactUsActivity extends AppCompatActivity implements View.OnClick
         }
 
     }
-
 }

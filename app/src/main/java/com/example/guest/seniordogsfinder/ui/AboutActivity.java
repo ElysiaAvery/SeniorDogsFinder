@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class AboutActivity extends AppCompatActivity {
+    public static final String TAG = AboutActivity.class.getSimpleName();
     @Bind(R.id.animatedBackground) ImageView mAnimatedBackground;
     @Bind(R.id.header) TextView mHeader;
     @Bind(R.id.aboutText) TextView mAbout;
