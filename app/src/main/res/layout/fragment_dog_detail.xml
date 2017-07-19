@@ -12,29 +12,11 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="230dp"
             android:id="@+id/dogImageView"
             android:layout_gravity="center_horizontal|top"
             android:scaleType="centerCrop"/>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:textSize="40dp"
-            android:textStyle="bold"
-            android:textColor="@color/colorAccent"
-            android:id="@+id/dogName"
-            android:gravity="center"
-            android:layout_below="@id/dogImageView"
-            android:text="Dog Name"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/addressTextView"
-            android:text="address"
-            android:textSize="15dp"
-            android:gravity="center"/>
         <ScrollView
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
@@ -42,15 +24,35 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/dogName"
+                android:layout_below="@id/dogImageView"
                 android:layout_margin="15dp"
                 android:id="@+id/dogInfo">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:textSize="40dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorAccent"
+                    android:id="@+id/dogName"
+                    android:gravity="center"
+                    android:text="Dog Name"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/addressTextView"
+                    android:layout_below="@id/dogName"
+                    android:text="address"
+                    android:textSize="15dp"
+                    android:gravity="center"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textSize="20dp"
                     android:textStyle="italic"
+                    android:layout_below="@id/addressTextView"
                     android:layout_marginBottom="5dp"
                     android:textColor="@color/colorPrimaryText"
                     android:id="@+id/dogGender"
@@ -104,23 +106,24 @@
             </RelativeLayout>
         </ScrollView>
    </LinearLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <Button
+            android:id="@+id/sponsorDogButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="@drawable/mybutton"
-            android:text="Sponsor!"
-            android:drawableRight="@drawable/ic_pets_white_24dp"
             android:drawableLeft="@drawable/ic_pets_white_24dp"
+            android:drawableRight="@drawable/ic_pets_white_24dp"
+            android:gravity="center"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:gravity="center"
-            android:textColor="#fff"
-            android:id="@+id/sponsorDogButton"/>
+            android:text="Sponsor!"
+            android:textColor="#fff" />
 
     </RelativeLayout>
 </FrameLayout>
