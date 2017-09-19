@@ -1,26 +1,19 @@
 package com.example.guest.seniordogsfinder.services;
 
-import android.annotation.TargetApi;
-import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.models.Dog;
-import com.example.guest.seniordogsfinder.ui.DogsActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -92,6 +85,7 @@ public class PetService extends AppCompatActivity {
                     } else if (sex.equals("F")) {
                         sex = "Gal";
                     }
+                    String shelterId = dogObjectJSON.getJSONObject("shelterId").getString("$t");
                     // Get dog's description.
                     String description = dogObjectJSON.getJSONObject("description").getString("$t");
                     // Get dog's attributes.
@@ -129,7 +123,7 @@ public class PetService extends AppCompatActivity {
                     // Get Shelter's zip code.
                     String zip = dogObjectJSON.getJSONObject("contact").getJSONObject("zip").getString("$t");
                     // Construct new dog object.
-                    Dog dog = new Dog(name, id, breeds, sex, description, options, contact, email, photos, city, state, zip);
+                    Dog dog = new Dog(name, id, breeds, sex, shelterId, description, options, contact, email, photos, city, state, zip);
                     dogList.add(dog);
                 }
             }

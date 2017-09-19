@@ -6,7 +6,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,14 +21,17 @@ import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.models.Dog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -36,19 +39,29 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DogDetailFragment extends Fragment implements View.OnClickListener{
+public class DogDetailFragment extends Fragment implements View.OnClickListener {
     private static final int MAX_WIDTH = 400;
     private static final int MAX_HEIGHT = 300;
-    @Bind(R.id.dogImageView) ImageView mDogImageView;
-    @Bind(R.id.dogName) TextView mDogNameTextView;
-    @Bind(R.id.dogGender) TextView mDogGender;
-    @Bind(R.id.dogOptions) TextView mDogOptions;
-    @Bind(R.id.dogPhone) TextView mDogPhone;
-    @Bind(R.id.dogEmail) TextView mDogEmail;
-    @Bind(R.id.dogDescription) TextView mDogDescription;
-    @Bind(R.id.addressTextView) TextView mAddressTextView;
-    @Bind(R.id.sponsorDogButton) Button mSponsoredDogButton;
-    @Bind(R.id.dogInfo) RelativeLayout mDogInfo;
+    @Bind(R.id.dogImageView)
+    ImageView mDogImageView;
+    @Bind(R.id.dogName)
+    TextView mDogNameTextView;
+    @Bind(R.id.dogGender)
+    TextView mDogGender;
+    @Bind(R.id.dogOptions)
+    TextView mDogOptions;
+    @Bind(R.id.dogPhone)
+    TextView mDogPhone;
+    @Bind(R.id.dogEmail)
+    TextView mDogEmail;
+    @Bind(R.id.dogDescription)
+    TextView mDogDescription;
+    @Bind(R.id.addressTextView)
+    TextView mAddressTextView;
+    @Bind(R.id.sponsorDogButton)
+    Button mSponsoredDogButton;
+    @Bind(R.id.dogInfo)
+    RelativeLayout mDogInfo;
     private ArrayList<Dog> mDogs;
     private int mPosition;
     private String mSource;
@@ -129,7 +142,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
         }
         if (v == mDogEmail) {
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] {mDog.getEmail()});
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{mDog.getEmail()});
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "I want to know more about " + mDog.getName());
             emailIntent.setType("message/rfc822");
             startActivity(Intent.createChooser(emailIntent, "Choose an E-mail client: "));
@@ -139,32 +152,57 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener{
             startActivity(webIntent);
         } else if (v == mSponsoredDogButton) {
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-            if(user == null) {
+            if (user == null) {
                 Toast.makeText(getContext(), "You have to be logged in to sponsor a pup!", Toast.LENGTH_SHORT).show();
                 return;
             } else {
                 String uid = user.getUid();
-                String dogId = mDog.getId();
-                DatabaseReference dogRef = FirebaseDatabase
+                final String dogId = mDog.getId();
+                final DatabaseReference dogRef = FirebaseDatabase
                         .getInstance()
                         .getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG)
                         .child(uid);
 
-//            DatabaseReference mIdReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG).child(uid).child(Constants.FIREBASE_QUERY_ID).child(String.valueOf(dogId));
-//            String stringId = "https://seniordogsfinder.firebaseio.com/sponsoredDogs/"+ uid + "/id/" + mDog.getId();
-//            if (stringId.matches(String.valueOf(mIdReference))) {
-//                Toast.makeText(getContext(), "You're already sponsoring this pup!", Toast.LENGTH_SHORT).show();
-//                return;
-//            } else {
-                DatabaseReference pushRef = dogRef.push();
-                String pushId = pushRef.getKey();
-                mDog.setPushId(pushId);
-                dogRef.push().setValue(mDog);
-                Toast.makeText(getContext(), "Added to your Sponsored Pups!", Toast.LENGTH_SHORT).show();
+                DatabaseReference mIdReference = (DatabaseReference) FirebaseDatabase.getInstance().getReference(Constants.FIREBASE_CHILD_SPONSORED_DOG).child(uid);
+                Log.v("here ", mIdReference + "");
+                mIdReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        boolean exists = false;
+                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                            Map<String, Object> model = (Map<String, Object>) child.getValue();
+
+                            if(model.get("id").equals(String.valueOf(mDog.getId()))) {
+                                exists = true;
+                                break;
+                            }
+                        }
+
+                        if(exists) {
+                            Toast.makeText(getContext(), "You're already sponsoring this pup!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        else {
+                            DatabaseReference pushRef = dogRef.push();
+                            String pushId = pushRef.getKey();
+                            mDog.setPushId(pushId);
+                            dogRef.push().setValue(mDog);
+                            Toast.makeText(getContext(), "Added to your Sponsored Pups!", Toast.LENGTH_SHORT).show();
+                            Intent webIntent = new Intent(Intent.ACTION_VIEW,
+                                    Uri.parse("https://sap.petfinderfoundation.com/sponsor-a-pet/" + mDog.getShelterId() + "/US/US/" + mDog.getId() + "/" + mDog.getName()));
+                            startActivity(webIntent);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
         }
 
     }
-
 }
