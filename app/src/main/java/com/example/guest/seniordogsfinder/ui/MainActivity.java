@@ -13,6 +13,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,7 +45,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mToggle;
     private static final int REQUEST_PERMISSIONS = 100;
-    boolean boolean_permission;
+    boolean location_permission;
+    boolean internet_permission;
+    boolean accounts_permission;
     SharedPreferences mPref;
     SharedPreferences.Editor medit;
 
@@ -124,6 +127,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSignOut.setOnClickListener(this);
         mFindDogsButton.setOnClickListener(this);
         fn_permission();
+        internet_permission();
     }
 
     @Override
@@ -146,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else if(v == mFindDogsButton) {
-            if (boolean_permission) {
+            if (location_permission) {
 
                 if (mPref.getString("service", "").matches("")) {
                     medit.putString("service", "service").commit();
@@ -155,7 +159,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     startService(googleIntent);
 
                 } else {
-                    Toast.makeText(getApplicationContext(), "Services are running!", Toast.LENGTH_SHORT).show();
+                    Log.v("Success", "services enabled");
                 }
             } else {
                 Toast.makeText(getApplicationContext(), "Please enable the GPS", Toast.LENGTH_SHORT).show();
@@ -167,7 +171,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
     private void fn_permission() {
-        if ((ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             if ((ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION))) {
 
@@ -180,7 +184,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         } else {
-            boolean_permission = true;
+            location_permission = true;
+        }
+    }
+
+    private void internet_permission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
+
+            if ((ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.INTERNET))) {
+
+
+            } else {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.INTERNET
+
+                        },
+                        REQUEST_PERMISSIONS);
+
+            }
+        } else {
+            internet_permission = true;
+        }
+    }
+
+    private void accounts_permission() {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
+
+            if ((ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.GET_ACCOUNTS))) {
+
+
+            } else {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.GET_ACCOUNTS
+
+                        },
+                        REQUEST_PERMISSIONS);
+
+            }
+        } else {
+            accounts_permission = true;
         }
     }
 
@@ -191,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (requestCode) {
             case REQUEST_PERMISSIONS: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    boolean_permission = true;
+                    location_permission = true;
 
                 } else {
                     Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
