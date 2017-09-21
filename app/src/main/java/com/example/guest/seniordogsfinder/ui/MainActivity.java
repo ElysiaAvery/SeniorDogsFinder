@@ -2,30 +2,32 @@ package com.example.guest.seniordogsfinder.ui;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Configuration;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
+import android.location.Geocoder;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
-import com.example.guest.seniordogsfinder.ui.UserActivity;
+import com.example.guest.seniordogsfinder.services.GoogleService;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -41,6 +43,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayAdapter<String> mAdapter;
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mToggle;
+    private static final int REQUEST_PERMISSIONS = 100;
+    boolean boolean_permission;
+    SharedPreferences mPref;
+    SharedPreferences.Editor medit;
+
+    Geocoder geocoder;
 
 
 
@@ -54,6 +62,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mDrawerList.setAdapter(mAdapter);
         ButterKnife.bind(this);
         auth = FirebaseAuth.getInstance();
+        mPref = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        medit = mPref.edit();
+        geocoder = new Geocoder(this, Locale.getDefault());
 
         Typeface goodDogFont = Typeface.createFromAsset(getAssets(), "fonts/LobsterTwo-Regular.otf");
         mHeader.setTypeface(goodDogFont);
@@ -112,6 +123,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSignIn.setOnClickListener(this);
         mSignOut.setOnClickListener(this);
         mFindDogsButton.setOnClickListener(this);
+        fn_permission();
     }
 
     @Override
@@ -134,8 +146,59 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
         } else if(v == mFindDogsButton) {
+            if (boolean_permission) {
+
+                if (mPref.getString("service", "").matches("")) {
+                    medit.putString("service", "service").commit();
+
+                    Intent googleIntent = new Intent(getApplicationContext(), GoogleService.class);
+                    startService(googleIntent);
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Services are running!", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getApplicationContext(), "Please enable the GPS", Toast.LENGTH_SHORT).show();
+            }
             Intent intent = new Intent(MainActivity.this, DogsActivity.class);
+//            intent.putExtra("zipCode", Parcels.wrap(mZipCode));
             startActivity(intent);
         }
+
     }
+    private void fn_permission() {
+        if ((ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)) {
+
+            if ((ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.ACCESS_FINE_LOCATION))) {
+
+
+            } else {
+                ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION
+
+                        },
+                        REQUEST_PERMISSIONS);
+
+            }
+        } else {
+            boolean_permission = true;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        switch (requestCode) {
+            case REQUEST_PERMISSIONS: {
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    boolean_permission = true;
+
+                } else {
+                    Toast.makeText(getApplicationContext(), "Please allow the permission", Toast.LENGTH_LONG).show();
+
+                }
+            }
+        }
+    }
+
 }

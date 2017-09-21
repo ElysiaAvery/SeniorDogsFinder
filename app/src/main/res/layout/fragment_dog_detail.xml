@@ -12,7 +12,7 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="230dp"
+            android:layout_height="250dp"
             android:id="@+id/dogImageView"
             android:layout_gravity="center_horizontal|top"
             android:scaleType="centerCrop"/>
@@ -25,7 +25,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dogImageView"
-                android:layout_margin="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="55dp"
+                android:layout_marginLeft="15dp"
                 android:id="@+id/dogInfo">
 
                 <TextView
@@ -99,14 +101,13 @@
                     android:textColor="@color/colorPrimaryText"
                     android:id="@+id/dogDescription"
                     android:gravity="left"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="65dp"
                     android:text="dog description"
                     android:layout_below="@id/dogEmail"/>
 
             </RelativeLayout>
         </ScrollView>
-   </LinearLayout>
-
+    </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

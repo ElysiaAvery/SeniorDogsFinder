@@ -115,7 +115,9 @@ public class PetService extends AppCompatActivity {
                     // Get Shelter's email.
                     String email = dogObjectJSON.getJSONObject("contact").getJSONObject("email").getString("$t");
                     // Get dog's best quality photo.
-                    String photos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(2).getString("$t");
+                    String largePhotos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(2).getString("$t");
+                    // Get dog's medium quality photo.
+                    String smallPhotos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(1).getString("$t");
                     // Get Shelter's city.
                     String city = dogObjectJSON.getJSONObject("contact").getJSONObject("city").getString("$t");
                     // Get Shelter's state.
@@ -123,7 +125,7 @@ public class PetService extends AppCompatActivity {
                     // Get Shelter's zip code.
                     String zip = dogObjectJSON.getJSONObject("contact").getJSONObject("zip").getString("$t");
                     // Construct new dog object.
-                    Dog dog = new Dog(name, id, breeds, sex, shelterId, description, options, contact, email, photos, city, state, zip);
+                    Dog dog = new Dog(name, id, breeds, sex, shelterId, description, options, contact, email, largePhotos, smallPhotos, city, state, zip);
                     dogList.add(dog);
                 }
             }

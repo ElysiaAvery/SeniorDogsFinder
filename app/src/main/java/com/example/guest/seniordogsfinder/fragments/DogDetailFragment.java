@@ -102,7 +102,7 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener 
         }
 
         Picasso.with(view.getContext())
-                .load(String.valueOf(mDog.getPhotos()))
+                .load(String.valueOf(mDog.getLargePhotos()))
                 .resize(MAX_WIDTH, MAX_HEIGHT)
                 .centerCrop()
                 .into(mDogImageView);

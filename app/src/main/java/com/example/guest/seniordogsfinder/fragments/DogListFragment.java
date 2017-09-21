@@ -1,15 +1,23 @@
 package com.example.guest.seniordogsfinder.fragments;
 
 
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,11 +29,14 @@ import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.adapters.DogsListAdapter;
 import com.example.guest.seniordogsfinder.models.Dog;
+import com.example.guest.seniordogsfinder.services.GoogleService;
 import com.example.guest.seniordogsfinder.services.PetService;
 import com.example.guest.seniordogsfinder.util.OnDogSelectedListener;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -45,6 +56,9 @@ public class DogListFragment extends Fragment {
     private DogsListAdapter mAdapter;
     public ArrayList<Dog> mDogs = new ArrayList<>();
     private OnDogSelectedListener mOnDogSelectedListener;
+    private String mZipCode;
+    Double latitude,longitude;
+    Geocoder geocoder;
 
     @Override
     public void onAttach(Context context) {
@@ -54,8 +68,8 @@ public class DogListFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + e.getMessage());
         }
-    }
 
+    }
 
     public DogListFragment() {
         // Required empty public constructor
@@ -64,11 +78,44 @@ public class DogListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        geocoder = new Geocoder(this.getContext(), Locale.getDefault());
+//        mZipCode = Parcels.unwrap(getArguments().getParcelable("zipCode"));
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mEditor = mSharedPreferences.edit();
+        final Context that = this.getContext();
+        if (!mSharedPreferences.contains("initialized")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this.getContext());
+            builder.setTitle("Location Preferences");
+            builder.setMessage("Search by either entering a zip code or using your current location.");
 
-        setHasOptionsMenu(true);
+            builder.setPositiveButton("Current Location", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    getDogs(mZipCode);
+                    dialog.dismiss();
+                }
+            });
+
+            builder.setNegativeButton("Manual Search", new DialogInterface.OnClickListener()
+            {
+                @Override
+                public void onClick(DialogInterface dialog, int which)
+                {
+                    mEditor = mSharedPreferences.edit();
+
+                    setHasOptionsMenu(true);
+                    dialog.dismiss();
+                }
+            });
+
+            builder.show();
+        } else {
+            mEditor = mSharedPreferences.edit();
+
+            setHasOptionsMenu(true);
+        }
     }
 
     @Override
@@ -147,6 +194,55 @@ public class DogListFragment extends Fragment {
         }
 
         return view;
+    }
+
+    private BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            Log.v("HERE", "HERE!");
+
+            latitude = Double.valueOf(intent.getStringExtra("latitude"));
+            longitude = Double.valueOf(intent.getStringExtra("longitude"));
+
+            Log.v("lat ", latitude + "");
+            Log.v("lng ", longitude + "");
+
+            List<Address> addresses = null;
+
+            try {
+                addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                while (addresses.size() == 0) {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 10);
+                }
+                if (addresses.size() > 0) {
+                    mZipCode = addresses.get(0).getPostalCode();
+                }
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
+//            }catch (NullPointerException e) {
+//                e.printStackTrace();
+//            }
+//            Log.v("lat ", latitude + "");
+//            Log.v("lng ", longitude + "");
+            Log.v("zipcode: ", mZipCode);
+
+        }
+    };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.v("broadcast", " receiver");
+        getActivity().registerReceiver(broadcastReceiver, new IntentFilter(GoogleService.str_receiver));
+
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        getActivity().unregisterReceiver(broadcastReceiver);
     }
 
 }

@@ -1,11 +1,8 @@
 package com.example.guest.seniordogsfinder.adapters;
 
-import android.animation.AnimatorInflater;
-import android.animation.AnimatorSet;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Typeface;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.RecyclerView;
@@ -36,7 +33,7 @@ import butterknife.ButterKnife;
  * Created by Guest on 12/2/16.
  */
 public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogViewHolder>{
-    private static final int MAX_WIDTH = 200;
+    private static final int MAX_WIDTH = 300;
     private static final int MAX_HEIGHT = 200;
     private ArrayList<Dog> mDogs = new ArrayList<>();
     private Context mContext;
@@ -124,7 +121,7 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
 
 
             Picasso.with(mContext)
-                    .load(String.valueOf(dog.getPhotos()))
+                    .load(String.valueOf(dog.getLargePhotos()))
                     .resize(MAX_WIDTH, MAX_HEIGHT)
                     .centerCrop()
                     .into(mDogImageView);
