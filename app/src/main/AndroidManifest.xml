@@ -78,6 +78,13 @@
         <service
             android:name=".services.GoogleService"
             android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".ui.WebDonationActivity" />
+
+        <service
+            android:name=".services.MyWebViewClient"
+            android:enabled="true"
             android:exported="true"></service>
     </application>
 

@@ -95,23 +95,39 @@ public class PetService extends AppCompatActivity {
                         options.add(optionsJSON.getJSONObject(j).getString("$t").toString());
                             if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("hasShots")) {
                                 options.remove("hasShots");
-                                options.add("Has shots");
+                                options.add("Up to date on Vaccinations");
                             } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("specialNeeds")) {
                                 options.remove("specialNeeds");
-                                options.add("Special needs");
+                                options.add("Special Needs");
                             } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("noDogs")) {
                                 options.remove("noDogs");
-                                options.add("No dogs");
+                                options.add("No other Dogs");
                             } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("noCats")) {
                                 options.remove("noCats");
-                                options.add("No cats");
+                                options.add("No Cats");
                             } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("noChildren")) {
                                 options.remove("noChildren");
-                                options.add("No children");
+                                options.add("No Children");
+                            } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("noKids")) {
+                                options.remove("noKids");
+                                options.add("No Kids");
+                            } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("altered")) {
+                                options.remove("altered");
+                                if (sex.equals("Guy")) {
+                                    options.add("Neutered");
+                                } else {
+                                    options.add("Spayed");
+                                }
+                            } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("housetrained")) {
+                                options.remove("housetrained");
+                                options.add("Housetrained");
                             }
                     }
                     // Get Shelter's phone number.
-                    String contact = dogObjectJSON.getJSONObject("contact").getJSONObject("phone").getString("$t");
+                    String contact = dogObjectJSON.getJSONObject("contact").getJSONObject("phone").optString("$t", "No phone number");
+                    if(contact.equals("0000000000")){
+                        contact = "No phone number";
+                    }
                     // Get Shelter's email.
                     String email = dogObjectJSON.getJSONObject("contact").getJSONObject("email").getString("$t");
                     // Get dog's best quality photo.

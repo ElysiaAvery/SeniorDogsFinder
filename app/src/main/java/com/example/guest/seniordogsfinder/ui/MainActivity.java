@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     ActionBarDrawerToggle mToggle;
     private static final int REQUEST_PERMISSIONS = 100;
     boolean location_permission;
-    boolean internet_permission;
-    boolean accounts_permission;
     SharedPreferences mPref;
     SharedPreferences.Editor medit;
 
@@ -127,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mSignOut.setOnClickListener(this);
         mFindDogsButton.setOnClickListener(this);
         fn_permission();
-        internet_permission();
     }
 
     @Override
@@ -165,7 +162,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(getApplicationContext(), "Please enable the GPS", Toast.LENGTH_SHORT).show();
             }
             Intent intent = new Intent(MainActivity.this, DogsActivity.class);
-//            intent.putExtra("zipCode", Parcels.wrap(mZipCode));
             startActivity(intent);
         }
 
@@ -185,42 +181,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         } else {
             location_permission = true;
-        }
-    }
-
-    private void internet_permission() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-
-            if ((ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.INTERNET))) {
-
-
-            } else {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.INTERNET
-
-                        },
-                        REQUEST_PERMISSIONS);
-
-            }
-        } else {
-            internet_permission = true;
-        }
-    }
-
-    private void accounts_permission() {
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.GET_ACCOUNTS) != PackageManager.PERMISSION_GRANTED) {
-
-            if ((ActivityCompat.shouldShowRequestPermissionRationale(MainActivity.this, android.Manifest.permission.GET_ACCOUNTS))) {
-
-
-            } else {
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.GET_ACCOUNTS
-
-                        },
-                        REQUEST_PERMISSIONS);
-
-            }
-        } else {
-            accounts_permission = true;
         }
     }
 

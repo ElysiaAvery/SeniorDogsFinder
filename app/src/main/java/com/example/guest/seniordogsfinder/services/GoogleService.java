@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -93,7 +92,7 @@ public class GoogleService extends Service implements LocationListener {
 
                 }
             } catch(SecurityException e) {
-                Toast.makeText(getApplicationContext(), "Security exception!", Toast.LENGTH_LONG).show();
+                Log.v("Security", " Exception");
             }
 
             try {
@@ -112,7 +111,7 @@ public class GoogleService extends Service implements LocationListener {
                     }
                 }
             } catch (SecurityException e) {
-                Toast.makeText(getApplicationContext(), "Security exception!", Toast.LENGTH_LONG).show();
+                Log.v("Security", " Exception");
             }
 
         }

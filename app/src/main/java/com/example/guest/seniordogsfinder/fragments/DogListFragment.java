@@ -7,11 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
@@ -24,6 +27,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
@@ -59,6 +63,8 @@ public class DogListFragment extends Fragment {
     private String mZipCode;
     Double latitude,longitude;
     Geocoder geocoder;
+    private static final int REQUEST_PERMISSIONS = 100;
+    boolean location_permission;
 
     @Override
     public void onAttach(Context context) {
@@ -79,6 +85,7 @@ public class DogListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         geocoder = new Geocoder(this.getContext(), Locale.getDefault());
+        fn_permission();
 
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
         if (!mSharedPreferences.contains("initialized")) {
@@ -91,8 +98,12 @@ public class DogListFragment extends Fragment {
                 @Override
                 public void onClick(DialogInterface dialog, int which)
                 {
-                    getDogs(mZipCode);
-                    dialog.dismiss();
+                    if (location_permission) {
+                        getDogs(mZipCode);
+                        dialog.dismiss();
+                    } else {
+                        Toast.makeText(getContext(), "Please enable the GPS", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
 
@@ -233,6 +244,24 @@ public class DogListFragment extends Fragment {
     public void onPause() {
         super.onPause();
         getActivity().unregisterReceiver(broadcastReceiver);
+    }
+
+    private void fn_permission() {
+        if (ContextCompat.checkSelfPermission(getContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            if ((ActivityCompat.shouldShowRequestPermissionRationale(this.getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION))) {
+
+
+            } else {
+                ActivityCompat.requestPermissions(this.getActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION
+
+                        },
+                        REQUEST_PERMISSIONS);
+
+            }
+        } else {
+            location_permission = true;
+        }
     }
 
 }

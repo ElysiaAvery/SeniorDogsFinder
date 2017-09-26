@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
 import com.example.guest.seniordogsfinder.models.Dog;
+import com.example.guest.seniordogsfinder.ui.WebDonationActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -136,9 +137,14 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         if (v == mDogPhone) {
-            Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
-                    Uri.parse("tel:" + mDog.getPhone()));
-            startActivity(phoneIntent);
+            if(mDog.getPhone().equals("No phone number") || mDog.getPhone().equals("0000000000")) {
+                Toast.makeText(getContext(), "Sorry! No phone number was provided, try to e-mail the rescue instead.", Toast.LENGTH_SHORT).show();
+                return;
+            } else {
+                Intent phoneIntent = new Intent(Intent.ACTION_DIAL,
+                        Uri.parse("tel:" + mDog.getPhone()));
+                startActivity(phoneIntent);
+            }
         }
         if (v == mDogEmail) {
             Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -188,9 +194,9 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener 
                             mDog.setPushId(pushId);
                             dogRef.push().setValue(mDog);
                             Toast.makeText(getContext(), "Added to your Sponsored Pups!", Toast.LENGTH_SHORT).show();
-                            Intent webIntent = new Intent(Intent.ACTION_VIEW,
-                                    Uri.parse("https://sap.petfinderfoundation.com/sponsor-a-pet/" + mDog.getShelterId() + "/US/US/" + mDog.getId() + "/" + mDog.getName()));
-                            startActivity(webIntent);
+                            Intent intent = new Intent(getContext(), WebDonationActivity.class);
+                            intent.putExtra("webDonationUrl", Parcels.wrap("https://sap.petfinderfoundation.com/sponsor-a-pet/" + mDog.getShelterId() + "/US/US/" + mDog.getId() + "/" + mDog.getName()));
+                            getContext().startActivity(intent);
                         }
                     }
 
