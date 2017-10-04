@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
@@ -42,12 +43,15 @@ public class DogsActivity extends AppCompatActivity implements OnDogSelectedList
     private Integer mPosition;
     ArrayList<Dog> mDogs;
     String mSource;
+    @Bind(R.id.dogPattern) ImageView dogPattern;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dogs);
+        ButterKnife.bind(this);
+        dogPattern.setBackgroundResource(R.drawable.dogpattern);
 
         if (savedInstanceState != null) {
 

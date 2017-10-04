@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.widget.ImageView;
 
 import com.example.guest.seniordogsfinder.Constants;
 import com.example.guest.seniordogsfinder.R;
@@ -24,11 +25,14 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class SponsoredDogsActivity extends AppCompatActivity {
+    @Bind(R.id.dogPattern) ImageView dogPattern;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_sponsored_dogs_list);
+        ButterKnife.bind(this);
+        dogPattern.setBackgroundResource(R.drawable.dogpattern);
     }
 }

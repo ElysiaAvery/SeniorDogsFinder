@@ -5,6 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".ui.SponsoredDogsActivity">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/dogPattern"/>
+
     <fragment
         android:id="@+id/fragmentRestaurantList"
         android:name="com.example.guest.seniordogsfinder.fragments.SponsoredDogsListFragment"

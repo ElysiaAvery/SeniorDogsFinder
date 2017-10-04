@@ -13,7 +13,14 @@
         android:layout_height="match_parent"
         android:layout_width="0dp"
         android:layout_weight="3"
-        tools:layout="@layout/fragment_dog_list" />
+        tools:layout="@layout/fragment_dog_list">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:id="@+id/dogPattern"/>
+    </fragment>
 
     <View android:background="@color/colorAccent"
         android:layout_width="2dp"

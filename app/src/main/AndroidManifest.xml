@@ -83,7 +83,7 @@
         <activity android:name=".ui.WebDonationActivity" />
 
         <service
-            android:name=".services.MyWebViewClient"
+            android:name=".util.MyWebViewClient"
             android:enabled="true"
             android:exported="true"></service>
     </application>

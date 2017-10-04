@@ -1,4 +1,4 @@
-package com.example.guest.seniordogsfinder.services;
+package com.example.guest.seniordogsfinder.util;
 
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;

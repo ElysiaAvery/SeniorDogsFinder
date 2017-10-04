@@ -9,7 +9,7 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 import com.example.guest.seniordogsfinder.R;
-import com.example.guest.seniordogsfinder.services.MyWebViewClient;
+import com.example.guest.seniordogsfinder.util.MyWebViewClient;
 
 import org.parceler.Parcels;
 

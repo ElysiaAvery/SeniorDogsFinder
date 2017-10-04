@@ -99,8 +99,16 @@ public class DogListFragment extends Fragment {
                 public void onClick(DialogInterface dialog, int which)
                 {
                     if (location_permission) {
-                        getDogs(mZipCode);
-                        dialog.dismiss();
+                        if(mZipCode == null) {
+                            Toast.makeText(getContext(), "No location currently detected, please use our manual search via a zip code.", Toast.LENGTH_LONG).show();
+                            mEditor = mSharedPreferences.edit();
+
+                            setHasOptionsMenu(true);
+                            dialog.dismiss();
+                        } else {
+                            getDogs(mZipCode);
+                            dialog.dismiss();
+                        }
                     } else {
                         Toast.makeText(getContext(), "Please enable the GPS", Toast.LENGTH_SHORT).show();
                     }
