@@ -87,12 +87,13 @@ public class PetService extends AppCompatActivity {
                     }
                     String shelterId = dogObjectJSON.getJSONObject("shelterId").getString("$t");
                     // Get dog's description.
-                    String description = dogObjectJSON.getJSONObject("description").getString("$t");
+                    String description = dogObjectJSON.getJSONObject("description").optString("$t", "No description provided");
                     // Get dog's attributes.
                     ArrayList<String> options = new ArrayList<>();
-                    JSONArray optionsJSON = dogObjectJSON.getJSONObject("options").getJSONArray("option");
-                    for (int j = 0; j < optionsJSON.length(); j++) {
-                        options.add(optionsJSON.getJSONObject(j).getString("$t").toString());
+                    try {
+                        JSONArray optionsJSON = dogObjectJSON.getJSONObject("options").getJSONArray("option");
+                        for (int j = 0; j < optionsJSON.length(); j++) {
+                            options.add(optionsJSON.getJSONObject(j).getString("$t").toString());
                             if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("hasShots")) {
                                 options.remove("hasShots");
                                 options.add("Up to date on Vaccinations");
@@ -115,33 +116,47 @@ public class PetService extends AppCompatActivity {
                                 options.remove("altered");
                                 if (sex.equals("Guy")) {
                                     options.add("Neutered");
-                                } else {
+                                } else if (sex.equals("Gal")){
                                     options.add("Spayed");
                                 }
                             } else if (optionsJSON.getJSONObject(j).getString("$t").toString().contains("housetrained")) {
                                 options.remove("housetrained");
                                 options.add("Housetrained");
                             }
+                        }
+                    } catch (JSONException e) {
+                        if (dogObjectJSON.isNull("options")){
+                            options.add("");
+                        } else {
+                            String emptyOptionsJSON = dogObjectJSON.getJSONObject("options").getJSONObject("option").getString("$t");
+                            options.add(emptyOptionsJSON);
+                        }
                     }
+
                     // Get Shelter's phone number.
                     String contact = dogObjectJSON.getJSONObject("contact").getJSONObject("phone").optString("$t", "No phone number");
                     if(contact.equals("0000000000")){
                         contact = "No phone number";
                     }
                     // Get Shelter's email.
-                    String email = dogObjectJSON.getJSONObject("contact").getJSONObject("email").getString("$t");
+                    String email = dogObjectJSON.getJSONObject("contact").getJSONObject("email").optString("$t", "No Email");
                     // Get dog's best quality photo.
-                    String largePhotos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(2).getString("$t");
-                    // Get dog's medium quality photo.
-                    String smallPhotos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(1).getString("$t");
+                    String largePhotos = "";
+                    try {
+                        largePhotos = dogObjectJSON.getJSONObject("media").getJSONObject("photos").getJSONArray("photo").getJSONObject(2).getString("$t");
+                    } catch (JSONException e) {
+                        if (dogObjectJSON.isNull("media")){
+                            largePhotos = "";
+                        }
+                    }
                     // Get Shelter's city.
-                    String city = dogObjectJSON.getJSONObject("contact").getJSONObject("city").getString("$t");
+                    String city = dogObjectJSON.getJSONObject("contact").getJSONObject("city").optString("$t", "No city provided");
                     // Get Shelter's state.
-                    String state = dogObjectJSON.getJSONObject("contact").getJSONObject("state").getString("$t");
+                    String state = dogObjectJSON.getJSONObject("contact").getJSONObject("state").optString("$t", "No state provided");
                     // Get Shelter's zip code.
-                    String zip = dogObjectJSON.getJSONObject("contact").getJSONObject("zip").getString("$t");
+                    String zip = dogObjectJSON.getJSONObject("contact").getJSONObject("zip").optString("$t", "");
                     // Construct new dog object.
-                    Dog dog = new Dog(name, id, breeds, sex, shelterId, description, options, contact, email, largePhotos, smallPhotos, city, state, zip);
+                    Dog dog = new Dog(name, id, breeds, sex, shelterId, description, options, contact, email, largePhotos, city, state, zip);
                     dogList.add(dog);
                 }
             }

@@ -119,12 +119,19 @@ public class DogsListAdapter extends RecyclerView.Adapter<DogsListAdapter.DogVie
             mBreedsTextView.setText(dogBreeds);
             mAddressTextView.setText(dog.getCity() + ", " + dog.getState() + " " + dog.getZip());
 
-
-            Picasso.with(mContext)
-                    .load(String.valueOf(dog.getLargePhotos()))
-                    .resize(MAX_WIDTH, MAX_HEIGHT)
-                    .centerCrop()
-                    .into(mDogImageView);
+            if (dog.getLargePhotos().equals("")) {
+                Picasso.with(mContext)
+                        .load(R.drawable.no_photo_available_md)
+                        .resize(MAX_WIDTH, MAX_HEIGHT)
+                        .centerCrop()
+                        .into(mDogImageView);
+            } else {
+                Picasso.with(mContext)
+                        .load(String.valueOf(dog.getLargePhotos()))
+                        .resize(MAX_WIDTH, MAX_HEIGHT)
+                        .centerCrop()
+                        .into(mDogImageView);
+            }
         }
     }
 

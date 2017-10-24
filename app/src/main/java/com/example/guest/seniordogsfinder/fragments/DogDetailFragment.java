@@ -102,12 +102,19 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener 
             mSponsoredDogButton.setOnClickListener(this);
         }
 
-        Picasso.with(view.getContext())
-                .load(String.valueOf(mDog.getLargePhotos()))
-                .resize(MAX_WIDTH, MAX_HEIGHT)
-                .centerCrop()
-                .into(mDogImageView);
-
+        if (mDog.getLargePhotos().equals("")) {
+            Picasso.with(view.getContext())
+                    .load(R.drawable.no_photo_available_md)
+                    .resize(MAX_WIDTH, MAX_HEIGHT)
+                    .centerCrop()
+                    .into(mDogImageView);
+        } else {
+            Picasso.with(view.getContext())
+                    .load(String.valueOf(mDog.getLargePhotos()))
+                    .resize(MAX_WIDTH, MAX_HEIGHT)
+                    .centerCrop()
+                    .into(mDogImageView);
+        }
         //add areas to be set
         mDogNameTextView.setText(mDog.getName());
         mAddressTextView.setText(mDog.getCity() + ", " + mDog.getState() + " " + mDog.getZip());
