@@ -127,6 +127,8 @@ public class PetService extends AppCompatActivity {
                     } catch (JSONException e) {
                         if (dogObjectJSON.isNull("options")){
                             options.add("");
+                        } else if (dogObjectJSON.getJSONObject("options").isNull("option")) {
+                            options.add("");
                         } else {
                             String emptyOptionsJSON = dogObjectJSON.getJSONObject("options").getJSONObject("option").getString("$t");
                             options.add(emptyOptionsJSON);
