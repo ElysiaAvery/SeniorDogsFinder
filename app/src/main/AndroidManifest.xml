@@ -80,7 +80,12 @@
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".ui.WebDonationActivity" />
+        <activity android:name=".ui.WebDonationActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:noHistory="true"
+                android:value="com.example.guest.seniordogsfinder.ui.DogsActivity" />
+        </activity>
 
         <service
             android:name=".util.MyWebViewClient"

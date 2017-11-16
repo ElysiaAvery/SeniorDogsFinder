@@ -42,6 +42,7 @@ public class WebDonationActivity extends AppCompatActivity {
         if ((keyCode == KeyEvent.KEYCODE_BACK) && webView.canGoBack()) {
             webView.goBack();
 //If there is history, then the canGoBack method will return ‘true’//
+            onStop();
             return true;
         }
 
@@ -49,5 +50,10 @@ public class WebDonationActivity extends AppCompatActivity {
 //WebView history, then the system should resort to its default behavior and return
 //the user to the previous Activity//
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
     }
 }

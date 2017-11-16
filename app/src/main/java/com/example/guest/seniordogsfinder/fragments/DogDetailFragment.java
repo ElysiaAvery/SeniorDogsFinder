@@ -196,13 +196,23 @@ public class DogDetailFragment extends Fragment implements View.OnClickListener 
                             return;
                         }
                         else {
+                            String currentDogName = mDog.getName();
                             DatabaseReference pushRef = dogRef.push();
                             String pushId = pushRef.getKey();
                             mDog.setPushId(pushId);
                             dogRef.push().setValue(mDog);
                             Toast.makeText(getContext(), "Added to your Sponsored Pups!", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getContext(), WebDonationActivity.class);
-                            intent.putExtra("webDonationUrl", Parcels.wrap("https://sap.petfinderfoundation.com/sponsor-a-pet/" + mDog.getShelterId() + "/US/US/" + mDog.getId() + "/" + mDog.getName()));
+                            if (currentDogName.contains(" ")) {
+                                currentDogName = currentDogName.replace(" ", "%");
+                            }
+                            if (currentDogName.contains("(")) {
+                                currentDogName = currentDogName.replace("(", "");
+                            }
+                            if (currentDogName.contains(")")) {
+                                currentDogName = currentDogName.replace(")", "");
+                            }
+                            intent.putExtra("webDonationUrl", Parcels.wrap("https://sap.petfinderfoundation.com/sponsor-a-pet/" + mDog.getShelterId() + "/US/US/" + mDog.getId() + "/" + currentDogName));
                             getContext().startActivity(intent);
                         }
                     }
